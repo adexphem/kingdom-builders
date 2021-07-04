@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { up } from "styled-breakpoints";
 
-import { LOGIN, INDEX } from "../../config/paths";
+import { INDEX, LOGIN } from "../../config/paths";
 import LP70Img from "../../components/images/LP70.png";
+
+import { Button } from "../../components";
 
 const Container = styled.div`
   width: 100%;
@@ -14,10 +17,15 @@ const Container = styled.div`
 const NavWrapper = styled.nav`
   display: flex;
   height: 80px;
-  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
   align-items: center;
   justify-content: space-between;
+
+  ${up("lg")} {
+    max-width: 1200px;
+    padding: 0;
+  }
 `;
 
 const NavLogo = styled.div`
@@ -26,9 +34,15 @@ const NavLogo = styled.div`
   }
 `;
 
-const NavLinks = styled.div``;
+const StyledButton = styled.div`
+  width: 130px;
+`;
 
 const navBar = () => {
+  const goToLogin = () => {
+    window.location.href = LOGIN;
+  };
+
   return (
     <Container>
       <NavWrapper>
@@ -37,7 +51,9 @@ const navBar = () => {
             <img src={LP70Img} alt="app-logo" />
           </Link>
         </NavLogo>
-        <Link to={LOGIN}>Login 101</Link>
+        <StyledButton>
+          <Button click_event={goToLogin} button_text="Login" />
+        </StyledButton>
       </NavWrapper>
     </Container>
   );
