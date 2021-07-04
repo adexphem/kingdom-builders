@@ -1,0 +1,250 @@
+html, body{
+	background: #FCFEFA;
+	font-size: 62.5%;
+	font-weight: $font-regular;
+	min-height: 100%;
+}
+
+body, input, textarea, select, button {
+	color:  $text-color;
+	font-family: $default-font;
+	font-weight: $font-regular;
+	font-size: to-rem(14px);
+	line-height: to-rem(24px);
+	letter-spacing: 0.3px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a, a:focus, a:hover {
+	color: inherit;
+	display: inline-block;
+	text-decoration: none;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+}
+
+img{
+	max-width: 100%;
+}
+
+.container{
+	margin: 0 auto;
+	max-width: to-rem(1170px);
+	overflow: auto;
+	padding: 0 to-rem(15px);
+	width: 100%;
+}
+
+.margin-top{
+	margin: to-rem(30px) auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+}
+
+h1{
+	font-size: to-rem(44px);
+	font-weight: $font-semibold;
+	line-height: to-rem(64px);
+}
+
+h2{
+	font-size: to-rem(32px);
+	font-weight: $font-semibold;
+	line-height: to-rem(48px);
+
+	@include phone{
+		font-size: to-rem(24px);
+		line-height: to-rem(32px);
+	}
+}
+
+h3{
+	font-size: to-rem(24px);
+	font-weight: $font-semibold;
+	line-height: to-rem(32px);
+ 
+	small{
+	  color: $text-color-2;
+	}
+}
+
+h4{
+	color: $text-color-3;
+	font-size: to-rem(20px);
+	font-weight: $font-semibold;
+	line-height: 120%;
+}
+
+h5{
+	font-size: to-rem(16px);
+	font-weight: $font-semibold;
+	line-height: to-rem(24px);
+}
+
+h6{
+	font-size: to-rem(14px);
+	font-weight: $font-semibold;
+	line-height: to-rem(24px);
+	text-transform: uppercase;
+}
+
+::-moz-selection {
+	background: $primary-color;
+	color: #ffffff;
+	opacity: 1;
+	text-shadow: none;
+}
+
+::selection {
+	background: $primary-color;
+	color: #ffffff;
+	opacity: 1;
+	text-shadow: none;
+}
+
+.center-text{
+	text-align: center;
+}
+
+.left-text{
+	text-align: left;
+}
+
+.right-text{
+	text-align: right;
+}
+
+.bold-text{
+	font-weight: $font-semibold;
+}
+
+.rwt__tablist:not([aria-orientation="vertical"]) .rwt__tab[aria-selected="true"]:after {
+	border-bottom: 3px solid $primary-color !important;
+}
+
+.rwt__tab {
+	color: $text-color-2;
+	font-size: to-rem(12px)!important;
+	font-weight: $font-semibold;
+	letter-spacing: 0.05em;
+}
+
+.rwt__tab[aria-selected="true"] {
+	color: $primary-color;
+	position: relative;
+}
+
+.rwt__tab[aria-selected="false"]:hover, .rwt__tab:focus {
+	outline: 0;
+	background-color: transparent !important;
+}
+
+.no-loan{
+	color: $text-color-2;
+	text-align: center;
+
+	h3{
+		font-size: to-rem(28px);
+		font-weight: $font-regular;
+		line-height: to-rem(35px);
+		margin: 0 auto to-rem(40px);
+		max-width: to-rem(500px);
+	}
+
+	.smiley-holder{
+		margin: 0 0 to-rem(30px);
+
+		svg{
+			width: 45px;
+		}
+
+	}
+}
+
+div.rwt__tablist {
+	@include phone{
+		display: block;
+		overflow-y: auto;
+		width: 100%;
+		white-space: nowrap;
+	}
+}
+
+
+.secure-iframe--holder{
+	height: 100vh;
+	left: 0;
+	padding: 0;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	z-index: 99;
+
+	iframe{
+		background: $color-white;
+		box-shadow: 0 4px 13px rgba($color-black, 0.25);
+		border: none;
+		border-radius: to-rem(10px);
+		height: to-rem(500px);
+		max-width: to-rem(450px);
+		padding: 0;
+		margin: 0 auto;
+		transform: translateY(50%);
+		width: 100%;
+	}
+
+	&:before{
+		background: rgba($color-black, 0.4);
+		bottom: 0;
+		content: "";
+		height: 100%;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
+}
+
+.hidden {
+  display: none !important;
+  opacity: 0;
+}
+
+.resend-otp,
+.resend-verification{
+  color: $secondary-color;
+  cursor: pointer;
+  font-weight: $font-semibold;
+  text-decoration: underline;
+  transition: 0.3s;
+  
+  &:hover{
+	text-decoration: none;
+  }
+}
+
+.styled-ul{
+  margin: 0 0 to-rem(50px);
+  padding: 0;
+  
+  li{
+	background: url("../../static/icons/checklist.svg") top 3px left no-repeat;
+	font-size: 16px;
+	font-weight: $font-semibold;
+	line-height: to-rem(25px);
+	list-style: none;
+	margin: 0 0 to-rem(15px);
+	padding-left:  to-rem(35px);
+	
+	
+	@include phone{
+	  margin: 0 0 to-rem(10px);
+	}
+  }
+}

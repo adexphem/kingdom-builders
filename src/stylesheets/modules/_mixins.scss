@@ -1,0 +1,109 @@
+@function parseInt($n) {
+	@return $n / ($n * 0 + 1);
+}
+
+@function to-rem($value) {
+	@if $value == 0 or $value == auto {
+		@return $value;
+	}
+	@else {
+		$unit: unit($value);
+		$val: parseInt($value);
+
+		@if $unit == 'px' {
+			@return $val / 10 + rem;
+		}
+
+		@if $unit == 'rem' {
+			@return $value;
+		}
+	}
+}
+
+@mixin ellipsis($width){
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: $width;
+}
+
+@mixin placeholder-style($val){
+	&:-moz-placeholder{
+		color: $val;
+	}
+	&::-moz-placeholder{
+		color: $val;
+	}
+	&:-ms-input-placeholder{
+		color: $val;
+	}
+	&::-webkit-input-placeholder{
+		color: $val;
+	}
+}
+
+@mixin custom-scroll{
+
+	&::-webkit-scrollbar {
+		width: 3px;
+		height: 5px;
+		border-radius: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+		height: 5px;
+		border-radius: 10px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		height: 5px;
+		background: transparent;
+	}
+
+	&:hover {
+
+		&::-webkit-scrollbar {
+			width: 3px;
+			height: 5px;
+			border-radius: 5px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: rgba(#000, 0.1);
+			height: 5px;
+			border-radius: 10px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			border-radius: 10px;
+			height: 5px;
+			background: rgba($primary-color, 0.65);
+		}
+	}
+}
+
+@mixin phone {
+	@media (max-width: #{$mobile-width}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$mobile-width + 1}) and (max-width: #{$tablet-width}) {
+		@content;
+	}
+}
+
+@mixin medium-screen {
+	@media (min-width: #{$tablet-width + 1}) and (max-width: #{$medium-width}) {
+		@content;
+	}
+}
+
+@mixin phone-tablet {
+	@media (max-width: #{$tablet-width}) {
+		@content;
+	}
+}
