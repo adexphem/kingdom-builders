@@ -35,6 +35,11 @@ const StyledTitle = styled.div`
 
 const FormContainer = styled.div`
   margin-top: 40px;
+  min-width: 350px;
+
+  ${up("lg")} {
+    min-width: 550px;
+  }
 `;
 
 const StyledButton = styled.div`
@@ -50,11 +55,17 @@ const CreateAccount = styled.label`
   font-family: ${({ theme }) => theme.fonts.primary};
   color: ${({ theme }) => theme.color.linkGrey};
   font-size: 0.875rem;
+  text-align: center;
+  display: block;
 
   a {
     font-weight: ${({ theme }) => theme.fontWeight.bold};
     color: ${({ theme }) => theme.color.primary};
   }
+`;
+
+const StyledCTAArea = styled.div`
+  margin-top: 20px;
 `;
 
 export const index = (props) => {
@@ -64,29 +75,41 @@ export const index = (props) => {
         <StyledTitle>Access your account</StyledTitle>
         <FormContainer>
           <Input
-            required
-            numberField
-            placeholder="Enter OTP"
-            label="Enter OTP"
+            placeholder="youremail@gmail.com"
+            label="Email Address"
             name="emailOtp"
-            value={"emailOtp"}
             minlength={5}
-            maxlength={6}
             autoFocus
-            readOnly={false}
             disabled={false}
             onChange={() => {}}
             classes={`border-bottom`}
             errorMessage={""}
+            type="email"
           />
 
-          <StyledButton>
-            <Button click_event={goToLogin} button_text="Sign In" />
-          </StyledButton>
+          <Input
+            placeholder="Enter your password"
+            label="Password"
+            name="password"
+            minlength={5}
+            autoFocus
+            disabled={false}
+            onChange={() => {}}
+            classes={`border-bottom`}
+            errorMessage={""}
+            type="password"
+            hasEye
+          />
 
-          <CreateAccount>
-            Don't have an account? <a href={`mailto:${config.createAccountEmail}`}>Create one here</a>
-          </CreateAccount>
+          <StyledCTAArea>
+            <StyledButton>
+              <Button click_event={goToLogin} button_text="Sign In" />
+            </StyledButton>
+
+            <CreateAccount>
+              Don't have an account? <a href={`mailto:${config.createAccountEmail}`}>Create one here</a>
+            </CreateAccount>
+          </StyledCTAArea>
         </FormContainer>
       </PageContent>
     </StyledContainer>

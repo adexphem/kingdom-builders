@@ -15,6 +15,8 @@ export const theme = {
     statusSuccess: "#6fcf97",
     statusRejected: "#eb5757",
     btnGreen387833: "#387833",
+    warning: "#E30505",
+    borderStroke: "#d8e0f0",
   },
   fontWeight: {
     regular: 400,
