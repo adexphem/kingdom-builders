@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
-import { INDEX, LOGIN } from "../../config/paths";
+import { INDEX } from "../../config/paths";
 import LP70Img from "../../components/images/LP70.png";
 
 import { goToLogin } from "../../utilities/helpers";
