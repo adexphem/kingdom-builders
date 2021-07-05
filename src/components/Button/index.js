@@ -16,7 +16,7 @@ const StyledButton = styled.button`
 `;
 
 const ButtonText = styled.span`
-  font-weight: 600;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: 1rem;
   line-height: 1.25rem;
   font-family: ${({ theme }) => theme.fonts.primary};

@@ -6,6 +6,7 @@ import { up } from "styled-breakpoints";
 import { INDEX, LOGIN } from "../../config/paths";
 import LP70Img from "../../components/images/LP70.png";
 
+import { goToLogin } from "../../utilities/helpers";
 import { Button } from "../../components";
 
 const Container = styled.div`
@@ -39,10 +40,6 @@ const StyledButton = styled.div`
 `;
 
 const navBar = () => {
-  const goToLogin = () => {
-    window.location.href = LOGIN;
-  };
-
   return (
     <Container>
       <NavWrapper>
