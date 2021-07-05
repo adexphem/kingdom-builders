@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { theme } from "./stylesheets/theme";
 import { LOGIN, INDEX } from "./config/paths";
 
 import Login from "./pages/UserAuth";
+import NavBar from "./pages/UserAuth/NavBar";
 import Dashboard from "./pages/Dashboard";
+
+import "./App.css";
 
 const App = () => {
   const [isLoginPage, setIsLoginPage] = useState(false);
@@ -21,13 +24,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {isLoginPage && (
-          <nav>
-            <Link to={LOGIN} className="navbar-brand">
-              Login
-            </Link>
-          </nav>
-        )}
+        {isLoginPage && <NavBar />}
 
         <div>
           <Switch>
