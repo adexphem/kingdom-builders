@@ -38,6 +38,8 @@ const StyledCTA = styled.div`
 
 const StyledIcon = styled.div`
   padding-right: 15px;
+  display: flex;
+  align-items: center;
 
   svg {
     height: 24px;

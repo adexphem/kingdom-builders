@@ -30,6 +30,7 @@ const App = () => {
           <Switch>
             <Route exact path={[`${INDEX}`, `${LOGIN}`]} component={Login} />
             <Route exact path="/dash" component={Dashboard} />
+            <Route exact path="/kingdom_builders" component={Dashboard} />
           </Switch>
         </div>
       </Router>
