@@ -39,7 +39,9 @@ const StyledSidebar = styled.div`
 `;
 
 const ContentArea = styled.div`
-  padding: 20px 30px;
+  width: 100vw;
+  padding: 20px 5px;
+  margin: 0 40px 0 10px;
 `;
 
 const StyledLogoutLink = styled.div`

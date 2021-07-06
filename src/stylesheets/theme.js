@@ -9,6 +9,7 @@ export const theme = {
     border: "#4c5c6d",
     grey: "#F6F6F6",
     linkGrey: "#7D8592",
+    paleGrey: "#91929E",
     systemFail: "#ae4036",
     systemSuccess: "#219653",
     systemPending: "#2d9cdb",
@@ -17,7 +18,10 @@ export const theme = {
     btnGreen387833: "#387833",
     btnGreen72AA6F: "#72AA6F",
     btnGreen1A5C16: "#1A5C16",
+    btnGreen049A04: "#049A04",
     warning: "#E30505",
+    tintBlue: "#37A2EB",
+    tintPink: "#EF8199",
     borderStroke: "#d8e0f0",
   },
   fontWeight: {
