@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -26,13 +26,13 @@ const App = () => {
       <Router>
         {isLoginPage && <NavBar />}
 
-        <div>
+        <Fragment>
           <Switch>
             <Route exact path={[`${INDEX}`, `${LOGIN}`]} component={Login} />
             <Route exact path="/dash" component={Dashboard} />
             <Route exact path="/kingdom_builders" component={Dashboard} />
           </Switch>
-        </div>
+        </Fragment>
       </Router>
     </ThemeProvider>
   );
