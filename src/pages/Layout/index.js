@@ -9,8 +9,11 @@ import MenuLogo from "./MenuLogo";
 import MenuItems from "./MenuItems";
 
 import { Menus } from "../../utilities/menuLinks";
+import { DASH, KINGDOM_BUILDERS, PROFILE, REPORT } from "../../config/paths";
 import Dashboard from "../Dashboard";
 import KingdomBuilders from "../KingdomBuilders";
+import Profile from "../MyProfile";
+import Reports from "../Reports";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -70,8 +73,10 @@ export const index = () => {
       </StyledSidebar>
       <ContentArea>
         <Switch>
-          <Route path="/dash" component={Dashboard} />
-          <Route path="/kingdom-builders" component={KingdomBuilders} />
+          <Route path={DASH} component={Dashboard} />
+          <Route path={KINGDOM_BUILDERS} component={KingdomBuilders} />
+          <Route path={PROFILE} component={Profile} />
+          <Route path={REPORT} component={Reports} />
         </Switch>
       </ContentArea>
     </StyledContainer>
