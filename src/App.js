@@ -7,7 +7,7 @@ import { LOGIN, INDEX } from "./config/paths";
 
 import Login from "./pages/UserAuth";
 import NavBar from "./pages/UserAuth/NavBar";
-import Dashboard from "./pages/Dashboard";
+import DashLayout from "./pages/Layout";
 
 import "./App.css";
 
@@ -24,15 +24,19 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        {isLoginPage && <NavBar />}
+        {isLoginPage && (
+          <Fragment>
+            {" "}
+            <NavBar />
+            <Fragment>
+              <Switch>
+                <Route exact path={[`${INDEX}`, `${LOGIN}`]} component={Login} />
+              </Switch>
+            </Fragment>
+          </Fragment>
+        )}
 
-        <Fragment>
-          <Switch>
-            <Route exact path={[`${INDEX}`, `${LOGIN}`]} component={Login} />
-            <Route exact path="/dash" component={Dashboard} />
-            <Route exact path="/kingdom_builders" component={Dashboard} />
-          </Switch>
-        </Fragment>
+        {!isLoginPage && <DashLayout />}
       </Router>
     </ThemeProvider>
   );
