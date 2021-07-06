@@ -5,8 +5,7 @@ import { up } from "styled-breakpoints";
 
 import LogoutLink from "./LogoutLink";
 import MenuLogo from "./MenuLogo";
-
-// import { handleLogout } from "../../utilities/helpers";
+import MenuItems from "./MenuItems";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -40,14 +39,14 @@ const StyledLogoutLink = styled.div`
   text-align: center;
   width: 100%;
 
-  padding: 20px 5px;
+  padding: 20px 0;
 `;
 
 const StyledTopArea = styled.div`
-  padding: 20px 5px;
+  padding: 20px 0;
 `;
 
-export const index = (props) => {
+export const index = () => {
   const handleLogout = () => {
     return (window.location.href = "/");
   };
@@ -57,6 +56,7 @@ export const index = (props) => {
       <StyledSidebar>
         <StyledTopArea>
           <MenuLogo />
+          <MenuItems />
         </StyledTopArea>
 
         <StyledLogoutLink>
