@@ -5,7 +5,7 @@ import { up } from "styled-breakpoints";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
-import { goToLogin } from "../../utilities/helpers";
+import { DASH } from "../../config/paths";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -69,6 +69,10 @@ const StyledCTAArea = styled.div`
 `;
 
 export const index = (props) => {
+  const handleLogin = () => {
+    return (window.location.href = DASH);
+  };
+
   return (
     <StyledContainer>
       <PageContent>
@@ -103,7 +107,7 @@ export const index = (props) => {
 
           <StyledCTAArea>
             <StyledButton>
-              <Button click_event={goToLogin} button_text="Sign In" />
+              <Button click_event={handleLogin} button_text="Sign In" />
             </StyledButton>
 
             <CreateAccount>

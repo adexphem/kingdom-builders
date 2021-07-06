@@ -15,6 +15,8 @@ export const theme = {
     statusSuccess: "#6fcf97",
     statusRejected: "#eb5757",
     btnGreen387833: "#387833",
+    btnGreen72AA6F: "#72AA6F",
+    btnGreen1A5C16: "#1A5C16",
     warning: "#E30505",
     borderStroke: "#d8e0f0",
   },
