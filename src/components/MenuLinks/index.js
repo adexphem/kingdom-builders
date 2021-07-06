@@ -49,9 +49,9 @@ const StyledIcon = styled.div`
 
 const StyledBar = styled.div`
   background: ${({ isActive }) => (isActive ? `rgba(26, 92, 22, 0.7)` : `rgba(26, 92, 22, 0.1)`)};
-  border-radius: 2px 0px 0px 2px;
+  border-radius: 5px 0px 0px 5px;
   width: 5px;
-  height: 44px;
+  height: 40px;
 `;
 
 const MenuLinks = (props) => {
