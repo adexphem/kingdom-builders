@@ -7,6 +7,8 @@ import LogoutLink from "./LogoutLink";
 import MenuLogo from "./MenuLogo";
 import MenuItems from "./MenuItems";
 
+import { Menus } from "../../utilities/menuLinks";
+
 const StyledContainer = styled.div`
   display: flex;
 `;
@@ -56,7 +58,7 @@ export const index = () => {
       <StyledSidebar>
         <StyledTopArea>
           <MenuLogo />
-          <MenuItems />
+          <MenuItems items={Menus} />
         </StyledTopArea>
 
         <StyledLogoutLink>

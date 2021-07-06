@@ -56,7 +56,7 @@ const MenuLinks = (props) => {
   const { title, isActive, onClick, icon } = props;
 
   return (
-    <StyledContainer onClick={onClick}>
+    <StyledContainer onClick={() => onClick(title)}>
       <StyledCTA isActive={isActive}>
         <StyledIcon isActive={isActive}>{linkIcons[`${icon}`]}</StyledIcon>
         {title}
