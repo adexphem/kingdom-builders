@@ -6,7 +6,7 @@ const MainContainer = styled.div`
 `;
 
 const Index = () => {
-  return <MainContainer>Dashboard</MainContainer>;
+  return <MainContainer>My Profile</MainContainer>;
 };
 
 export default Index;
