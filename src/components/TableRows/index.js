@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { Fragment } from "react";
+import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
@@ -8,7 +8,7 @@ import StatusDot from "../StatusDot";
 dayjs.extend(utc);
 
 const StyledContainer = styled.div`
-  width: 100%;
+  width: auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -17,25 +17,60 @@ const StyledContainer = styled.div`
   border-radius: 15px;
   margin-bottom: 18px;
   background-color: ${({ theme }) => theme.color.white};
+  transition: box-shadow 0.6s;
+
+  &:hover {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+  }
 `;
 
 const StyledCol = styled.div`
-  display: block;
-  min-width: 40px;
-  max-width: 190px;
   word-wrap: normal;
   padding: 3px 5px;
-  overflow-wrap: break-word;
+  flex: 1 1 0px;
+  width: 0;
 `;
 
 const ColTitle = styled.div`
   line-height: 1.875rem;
   font-size: 0.875rem;
   color: ${({ theme }) => theme.color.paleGrey};
+  text-transform: capitalize;
+
+  ${({ fixedDate, fixedStatus }) =>
+    (fixedDate &&
+      css`
+        width: 100px;
+      `) ||
+    (fixedStatus &&
+      css`
+        width: 50px !important;
+        font-weight: bold;
+      `)}
+`;
+
+const hideScrollbars = css`
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    display: none;
+    background: transparent; /* Chrome/Safari/Webkit */
+  }
 `;
 
 const ColBody = styled.div`
+  display: flex;
   font-size: 1rem;
+  white-space: nowrap;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  height: 20px;
+
+  ${hideScrollbars}
 `;
 
 const formatDate = (value) => {
@@ -49,22 +84,24 @@ const Index = ({ data }) => {
     <StyledContainer>
       {data &&
         rowValue.map((item, id) => (
-          <StyledCol key={id}>
-            <ColTitle>{item[0] === "total_amount_paid" ? "Amount Paid" : item[0]}</ColTitle>
-            {item[0] === "status" && (
-              <ColBody>
-                <StatusDot status={item[1]} />
-              </ColBody>
-            )}
+          <Fragment key={id}>
+            <StyledCol>
+              <ColTitle>{item[0] === "total_amount_paid" ? "Amount Paid" : item[0]}</ColTitle>
+              {item[0] === "status" && (
+                <ColBody>
+                  <StatusDot status={item[1]} />
+                </ColBody>
+              )}
 
-            {item[0] === "date" ? (
-              <ColBody>{formatDate(item[1])}</ColBody>
-            ) : item[0] !== "status" ? (
-              <ColBody>{item[1]}</ColBody>
-            ) : (
-              ""
-            )}
-          </StyledCol>
+              {item[0] === "date" ? (
+                <ColBody>{formatDate(item[1])}</ColBody>
+              ) : item[0] !== "status" ? (
+                <ColBody>{item[1]}</ColBody>
+              ) : (
+                ""
+              )}
+            </StyledCol>
+          </Fragment>
         ))}
     </StyledContainer>
   );
