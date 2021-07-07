@@ -5,6 +5,8 @@ import utc from "dayjs/plugin/utc";
 
 import StatusDot from "../StatusDot";
 
+import { numberWithCommas } from "../../utilities/helpers";
+
 dayjs.extend(utc);
 
 const StyledContainer = styled.div`
@@ -77,6 +79,11 @@ const formatDate = (value) => {
   return dayjs.utc(value).format("DD MMM YYYY") || "22 Aug 2021";
 };
 
+const formatHeader = (item) => {
+  const isCheck = item[0] === "amount_pledge" || item[0] === "total_amount_paid";
+  return isCheck ? <ColBody>{`₦${numberWithCommas(item[1])}`}</ColBody> : <ColBody>{item[1]}</ColBody>;
+};
+
 const Index = ({ data }) => {
   const rowValue = Object.entries(data);
 
@@ -96,7 +103,7 @@ const Index = ({ data }) => {
               {item[0] === "date" ? (
                 <ColBody>{formatDate(item[1])}</ColBody>
               ) : item[0] !== "status" ? (
-                <ColBody>{item[1]}</ColBody>
+                formatHeader(item)
               ) : (
                 ""
               )}
@@ -107,4 +114,4 @@ const Index = ({ data }) => {
   );
 };
 
-export default Index;
+export default React.memo(Index);

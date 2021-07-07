@@ -31,4 +31,4 @@ const index = ({ status }) => {
   );
 };
 
-export default index;
+export default React.memo(index);

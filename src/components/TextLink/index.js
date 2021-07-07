@@ -17,4 +17,4 @@ TextLink.propTypes = {
   text: PropTypes.string,
 };
 
-export default TextLink;
+export default React.memo(TextLink);
