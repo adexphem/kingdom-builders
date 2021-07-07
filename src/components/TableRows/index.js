@@ -5,7 +5,7 @@ import utc from "dayjs/plugin/utc";
 
 import StatusDot from "../StatusDot";
 
-import { numberWithCommas } from "../../utilities/helpers";
+import { numberWithCommas, removeUnderscore } from "../../utilities/helpers";
 
 dayjs.extend(utc);
 
@@ -22,6 +22,7 @@ const StyledContainer = styled.div`
   transition: box-shadow 0.6s;
 
   &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
@@ -93,7 +94,7 @@ const Index = ({ data }) => {
         rowValue.map((item, id) => (
           <Fragment key={id}>
             <StyledCol>
-              <ColTitle>{item[0] === "total_amount_paid" ? "Amount Paid" : item[0]}</ColTitle>
+              <ColTitle>{item[0] === "total_amount_paid" ? "Paid" : removeUnderscore(item[0])}</ColTitle>
               {item[0] === "status" && (
                 <ColBody>
                   <StatusDot status={item[1]} />

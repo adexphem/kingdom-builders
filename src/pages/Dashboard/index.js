@@ -19,17 +19,26 @@ const StyledBreakdown = styled.div`
   justify-content: space-between;
   flex-basis: 30%;
 
+  ${up("md")} {
+    flex-direction: row;
+  }
+
   ${up("lg")} {
     flex-direction: row;
   }
 `;
 
 const StyledKBuilders = styled.div`
-  max-width: 250px;
+  flex: 1 1 0;
+`;
+
+const StyledKZones = styled.div`
+  flex: 1 1 0;
 `;
 
 const BreakdownChart = styled.div`
-  max-width: 400px;
+  flex: 2 1 0;
+  margin: 0 40px;
 `;
 
 const StyledChartContainer = styled.div``;
@@ -40,7 +49,9 @@ const Index = () => {
       <StyledBreakdown>
         <StyledKBuilders>
           <TypeACard>
-            <div>Kingdom Builders</div>
+            <div>
+              Kingdom <br /> Builders
+            </div>
             <div>1,800</div>
           </TypeACard>
         </StyledKBuilders>
@@ -51,7 +62,9 @@ const Index = () => {
           </TypeACard>
         </BreakdownChart>
 
-        <TypeACard>C</TypeACard>
+        <StyledKZones>
+          <TypeACard>C</TypeACard>
+        </StyledKZones>
       </StyledBreakdown>
       <StyledChartContainer>
         <TypeACard>D</TypeACard>
