@@ -3,17 +3,22 @@ import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
 import { TypeACard } from "../../components/";
+import { TextLink } from "../../components/";
 
-const MainContainer = styled.div`
+import ZoneListing from "./ZonalViews";
+
+export const FlexWrapper = styled.div`
+  display: flex;
+`;
+
+const MainContainer = styled(FlexWrapper)`
   width: auto;
   padding: 15px 20px;
-  display: flex;
   flex-direction: column;
   font-family: ${({ theme }) => theme.fonts.primary};
 `;
 
-const StyledBreakdown = styled.div`
-  display: flex;
+const StyledBreakdown = styled(FlexWrapper)`
   flex-direction: column;
   margin-bottom: 25px;
   justify-content: space-between;
@@ -30,6 +35,7 @@ const StyledBreakdown = styled.div`
 
 const StyledKBuilders = styled.div`
   flex: 1 1 0;
+  height: 230px;
 `;
 
 const StyledKZones = styled.div`
@@ -41,7 +47,51 @@ const BreakdownChart = styled.div`
   margin: 0 40px;
 `;
 
-const StyledChartContainer = styled.div``;
+const CountTitle = styled.div`
+  text-align: center;
+  font-size: 1.2rem;
+  padding-bottom: 10px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+
+  ${up("md")} {
+    font-size: 1.875rem;
+  }
+
+  ${up("lg")} {
+    font-size: 2rem;
+  }
+`;
+
+const CountDisplay = styled.div`
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+  background-color: rgba(241, 247, 241, 1);
+
+  ${up("md")} {
+    font-size: 1.875rem;
+  }
+
+  ${up("lg")} {
+    font-size: 3rem;
+  }
+`;
+
+const StyledChartContainer = styled.div`
+  margin-top: 20px;
+`;
+
+const StyledTextLink = styled.div`
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+`;
 
 const Index = () => {
   return (
@@ -49,10 +99,10 @@ const Index = () => {
       <StyledBreakdown>
         <StyledKBuilders>
           <TypeACard>
-            <div>
+            <CountTitle>
               Kingdom <br /> Builders
-            </div>
-            <div>1,800</div>
+            </CountTitle>
+            <CountDisplay>1,800</CountDisplay>
           </TypeACard>
         </StyledKBuilders>
 
@@ -63,11 +113,17 @@ const Index = () => {
         </BreakdownChart>
 
         <StyledKZones>
-          <TypeACard>C</TypeACard>
+          <TypeACard>
+            <CountTitle>Zonal Views</CountTitle>
+            <ZoneListing />
+            <StyledTextLink>
+              <TextLink text="See all" showUnderline showArrow />
+            </StyledTextLink>
+          </TypeACard>
         </StyledKZones>
       </StyledBreakdown>
       <StyledChartContainer>
-        <TypeACard>D</TypeACard>
+        <TypeACard>Payment Distribution</TypeACard>
       </StyledChartContainer>
     </MainContainer>
   );

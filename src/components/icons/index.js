@@ -5,5 +5,6 @@ import OpenBookIcon from "./OpenBookIcon";
 import ProfileIcon from "./ProfileIcon";
 import ReportIcon from "./ReportIcon";
 import PeopleIcon from "./PeopleIcon";
+import RightArrowIcon from "./RightArrowIcon";
 
-export { LP70Logo, EyeIcon, LogoutIcon, OpenBookIcon, ProfileIcon, ReportIcon, PeopleIcon };
+export { LP70Logo, EyeIcon, LogoutIcon, OpenBookIcon, ProfileIcon, ReportIcon, PeopleIcon, RightArrowIcon };
