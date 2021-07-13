@@ -7,3 +7,4 @@ export const KINGDOM_BUILDERS = "/lp70/kingdom-builders";
 
 // localstorage usage
 export const LP70_ACTIVE_TAB = "LP70_ACTIVE_TAB";
+export const LP70_TOKEN_ID = "x_lp70_token" 

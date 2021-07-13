@@ -37,7 +37,7 @@ const StyledCol = styled.div`
 
 const ColTitle = styled.div`
   line-height: 1.875rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: ${({ theme }) => theme.color.paleGrey};
   text-transform: capitalize;
 
@@ -67,7 +67,7 @@ const hideScrollbars = css`
 
 const ColBody = styled.div`
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: scroll;
   text-overflow: ellipsis;
@@ -85,6 +85,8 @@ const formatHeader = (item) => {
   return isCheck ? <ColBody>{`₦${numberWithCommas(item[1])}`}</ColBody> : <ColBody>{item[1]}</ColBody>;
 };
 
+const expectedHeaders = ["status", "amount_pledge", "email", "name", "payment_mode", "total_amount_paid"];
+
 const Index = ({ data }) => {
   const rowValue = Object.entries(data);
 
@@ -93,22 +95,25 @@ const Index = ({ data }) => {
       {data &&
         rowValue.map((item, id) => (
           <Fragment key={id}>
-            <StyledCol>
-              <ColTitle>{item[0] === "total_amount_paid" ? "Paid" : removeUnderscore(item[0])}</ColTitle>
-              {item[0] === "status" && (
-                <ColBody>
-                  <StatusDot status={item[1]} />
-                </ColBody>
-              )}
+            {expectedHeaders.includes(`${item[0]}`) && (
+              <StyledCol>
+                <ColTitle>{item[0] === "total_amount_paid" ? "Paid" : removeUnderscore(item[0])}</ColTitle>
 
-              {item[0] === "date" ? (
-                <ColBody>{formatDate(item[1])}</ColBody>
-              ) : item[0] !== "status" ? (
-                formatHeader(item)
-              ) : (
-                ""
-              )}
-            </StyledCol>
+                {item[0] === "status" && (
+                  <ColBody>
+                    <StatusDot status={item[1]} />
+                  </ColBody>
+                )}
+
+                {item[0] === "date" ? (
+                  <ColBody>{formatDate(item[1])}</ColBody>
+                ) : item[0] !== "status" ? (
+                  formatHeader(item)
+                ) : (
+                  ""
+                )}
+              </StyledCol>
+            )}
           </Fragment>
         ))}
     </StyledContainer>

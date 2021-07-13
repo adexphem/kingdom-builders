@@ -1,8 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
+import { config } from "../../config";
+import { setBuilderList } from "../../redux/actions/kingdomBuilderAction";
 import TableRows from "../../components/TableRows";
 
 const MainContainer = styled.div`
@@ -27,15 +30,30 @@ const PageTitle = styled.h1`
 `;
 
 const Index = () => {
-  const pledgersList = useSelector((state) => state.kingdomBuilders.pledgers);
-  console.log("pledgersList ", pledgersList);
+  const dispatch = useDispatch();
+  const buildersList = useSelector((state) => state.kingdomBuilders);
+
+  const getPledgerList = async () => {
+    const response = await axios.get(`${config.baseUrl}/kingdom_builder`).catch((err) => {
+      console.log("Error", err);
+    });
+
+    if (response && response.data) {
+      dispatch(setBuilderList(response.data));
+    }
+  };
+
+  useEffect(() => {
+    getPledgerList();
+  }, []);
+
   return (
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
 
-      {pledgersList && pledgersList.map((item, id) => <TableRows key={id} data={item} />)}
+      {buildersList && buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)}
     </MainContainer>
   );
 };
 
-export default Index;
+export default React.memo(Index);

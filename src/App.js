@@ -16,6 +16,7 @@ const App = () => {
 
   useEffect(() => {
     const location = window.location.pathname;
+
     if (location === LOGIN || location === INDEX) {
       setIsLoginPage(true);
     }
