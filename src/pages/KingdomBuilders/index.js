@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
@@ -25,42 +26,14 @@ const PageTitle = styled.h1`
   }
 `;
 
-const dataItems = [
-  {
-    status: "part",
-    name: "Dayo omojomolo akinwole",
-    payment_mode: "monthly",
-    date: "2021-07-05T14:32:18.436Z",
-    amount_pledge: 3540394,
-    total_amount_paid: 5000,
-    email: "fem.fem@gmail.com",
-  },
-  {
-    status: "full",
-    name: "Femi Olunuga",
-    payment_mode: "monthly",
-    date: "2021-06-05T14:32:18.436Z",
-    amount_pledge: 2140394,
-    total_amount_paid: 2140394,
-    email: "fem.fem@gmail.com",
-  },
-  {
-    status: "awaiting",
-    name: "Daniel Kehinde",
-    payment_mode: "quarterly",
-    date: "2021-07-11T10:32:18.436Z",
-    amount_pledge: 5000000,
-    total_amount_paid: 1500000,
-    email: "daniel_kehinde@gmail.com",
-  },
-];
-
 const Index = () => {
+  const pledgersList = useSelector((state) => state.kingdomBuilders.pledgers);
+  console.log("pledgersList ", pledgersList);
   return (
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
 
-      {dataItems && dataItems.map((item, id) => <TableRows key={id} data={item} />)}
+      {pledgersList && pledgersList.map((item, id) => <TableRows key={id} data={item} />)}
     </MainContainer>
   );
 };

@@ -6,6 +6,7 @@ import { TypeACard } from "../../components/";
 import { TextLink } from "../../components/";
 
 import ZoneListing from "./ZonalViews";
+import PaymentBreakdown from "./PaymentBreakdown";
 
 export const FlexWrapper = styled.div`
   display: flex;
@@ -108,13 +109,12 @@ const Index = () => {
 
         <BreakdownChart>
           <TypeACard>
-            <div>Payment Breakdown</div>
+            <PaymentBreakdown />
           </TypeACard>
         </BreakdownChart>
 
         <StyledKZones>
           <TypeACard>
-            <CountTitle>Zonal Views</CountTitle>
             <ZoneListing />
             <StyledTextLink>
               <TextLink text="See all" showUnderline showArrow />

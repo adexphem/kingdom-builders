@@ -27,12 +27,28 @@ const ZoneListing = styled(FlexWrapper)`
   }
 `;
 
+const CountTitle = styled.div`
+  text-align: center;
+  font-size: 1.2rem;
+  padding-bottom: 10px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+
+  ${up("md")} {
+    font-size: 1.875rem;
+  }
+
+  ${up("lg")} {
+    font-size: 2rem;
+  }
+`;
+
 const StyledEyeIcon = styled(FlexWrapper)`
   flex: 2 1 0;
   align-items: center;
+  font-size: 1rem;
 
   svg {
-    fill: red;
+    fill: rgba(71, 81, 31, 0.7);
     height: 14px;
     margin-right: 7px;
   }
@@ -42,17 +58,25 @@ const ZoneCount = styled.div`
   padding: 2px 5px;
   font-size: 1rem;
   border-radius: 3px;
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   background-color: ${({ theme }) => theme.color.white};
 `;
 
 const Index = () => {
   return (
     <Fragment>
+      <CountTitle>Zonal Views</CountTitle>
       <ZoneListing>
         <StyledEyeIcon>
           <EyeIcon /> Zone 2
         </StyledEyeIcon>
         <ZoneCount>12</ZoneCount>
+      </ZoneListing>
+      <ZoneListing>
+        <StyledEyeIcon>
+          <EyeIcon /> Zone 8
+        </StyledEyeIcon>
+        <ZoneCount>32</ZoneCount>
       </ZoneListing>
     </Fragment>
   );

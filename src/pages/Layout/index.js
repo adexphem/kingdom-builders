@@ -79,6 +79,7 @@ export const index = () => {
           <Route path={KINGDOM_BUILDERS} component={KingdomBuilders} />
           <Route path={PROFILE} component={Profile} />
           <Route path={REPORT} component={Reports} />
+          <Route>404 Not Found!</Route>
         </Switch>
       </ContentArea>
     </StyledContainer>
