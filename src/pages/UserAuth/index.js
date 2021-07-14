@@ -5,7 +5,7 @@ import { up } from "styled-breakpoints";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
-import { DASH } from "../../config/paths";
+import { DASH, LP70_TOKEN_ID } from "../../config/paths";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -70,6 +70,9 @@ const StyledCTAArea = styled.div`
 
 export const index = (props) => {
   const handleLogin = () => {
+    const value =
+      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjYyOTcxNDB9.fHbrAsI898FAAWAd0SWeHZXOU2SjL2JYYtWCyIcTEvQ";
+    localStorage.setItem(LP70_TOKEN_ID, value);
     return (window.location.href = DASH);
   };
 

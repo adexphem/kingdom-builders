@@ -5,6 +5,8 @@ import utc from "dayjs/plugin/utc";
 
 import StatusDot from "../StatusDot";
 
+import { numberWithCommas, removeUnderscore } from "../../utilities/helpers";
+
 dayjs.extend(utc);
 
 const StyledContainer = styled.div`
@@ -20,6 +22,7 @@ const StyledContainer = styled.div`
   transition: box-shadow 0.6s;
 
   &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
@@ -34,7 +37,7 @@ const StyledCol = styled.div`
 
 const ColTitle = styled.div`
   line-height: 1.875rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   color: ${({ theme }) => theme.color.paleGrey};
   text-transform: capitalize;
 
@@ -64,7 +67,7 @@ const hideScrollbars = css`
 
 const ColBody = styled.div`
   display: flex;
-  font-size: 1rem;
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: scroll;
   text-overflow: ellipsis;
@@ -77,6 +80,13 @@ const formatDate = (value) => {
   return dayjs.utc(value).format("DD MMM YYYY") || "22 Aug 2021";
 };
 
+const formatHeader = (item) => {
+  const isCheck = item[0] === "amount_pledge" || item[0] === "total_amount_paid";
+  return isCheck ? <ColBody>{`₦${numberWithCommas(item[1])}`}</ColBody> : <ColBody>{item[1]}</ColBody>;
+};
+
+const expectedHeaders = ["status", "amount_pledge", "email", "name", "payment_mode", "total_amount_paid"];
+
 const Index = ({ data }) => {
   const rowValue = Object.entries(data);
 
@@ -85,26 +95,29 @@ const Index = ({ data }) => {
       {data &&
         rowValue.map((item, id) => (
           <Fragment key={id}>
-            <StyledCol>
-              <ColTitle>{item[0] === "total_amount_paid" ? "Amount Paid" : item[0]}</ColTitle>
-              {item[0] === "status" && (
-                <ColBody>
-                  <StatusDot status={item[1]} />
-                </ColBody>
-              )}
+            {expectedHeaders.includes(`${item[0]}`) && (
+              <StyledCol>
+                <ColTitle>{item[0] === "total_amount_paid" ? "Paid" : removeUnderscore(item[0])}</ColTitle>
 
-              {item[0] === "date" ? (
-                <ColBody>{formatDate(item[1])}</ColBody>
-              ) : item[0] !== "status" ? (
-                <ColBody>{item[1]}</ColBody>
-              ) : (
-                ""
-              )}
-            </StyledCol>
+                {item[0] === "status" && (
+                  <ColBody>
+                    <StatusDot status={item[1]} />
+                  </ColBody>
+                )}
+
+                {item[0] === "date" ? (
+                  <ColBody>{formatDate(item[1])}</ColBody>
+                ) : item[0] !== "status" ? (
+                  formatHeader(item)
+                ) : (
+                  ""
+                )}
+              </StyledCol>
+            )}
           </Fragment>
         ))}
     </StyledContainer>
   );
 };
 
-export default Index;
+export default React.memo(Index);

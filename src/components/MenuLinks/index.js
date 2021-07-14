@@ -81,4 +81,4 @@ MenuLinks.propTypes = {
   isActive: PropTypes.bool,
 };
 
-export default MenuLinks;
+export default React.memo(MenuLinks);

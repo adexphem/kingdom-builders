@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
+import { config } from "../../config";
+import { setBuilderList } from "../../redux/actions/kingdomBuilderAction";
 import TableRows from "../../components/TableRows";
 
 const MainContainer = styled.div`
@@ -25,44 +29,35 @@ const PageTitle = styled.h1`
   }
 `;
 
-const dataItems = [
-  {
-    status: "part",
-    name: "Dayo omojomolo akinwole",
-    payment_mode: "monthly",
-    date: "2021-07-05T14:32:18.436Z",
-    amount_pledge: 3540394,
-    total_amount_paid: 5000,
-    email: "fem.fem@gmail.com",
-  },
-  {
-    status: "full",
-    name: "Femi Olunuga",
-    payment_mode: "monthly",
-    date: "2021-06-05T14:32:18.436Z",
-    amount_pledge: 2140394,
-    total_amount_paid: 2140394,
-    email: "fem.fem@gmail.com",
-  },
-  {
-    status: "awaiting",
-    name: "Daniel Kehinde",
-    payment_mode: "quarterly",
-    date: "2021-07-11T10:32:18.436Z",
-    amount_pledge: 5000000,
-    total_amount_paid: 1500000,
-    email: "daniel_kehinde@gmail.com",
-  },
-];
-
 const Index = () => {
+  const dispatch = useDispatch();
+  const buildersList = useSelector((state) => state.kingdomBuilders);
+
+  const getPledgerList = async () => {
+    const response = await axios.get(`${config.baseUrl}/kingdom_builder`).catch((err) => {
+      console.log("Error", err);
+    });
+
+    if (response && response.data) {
+      dispatch(setBuilderList(response.data));
+    }
+  };
+
+  useEffect(() => {
+    getPledgerList();
+  }, []);
+
   return (
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
 
-      {dataItems && dataItems.map((item, id) => <TableRows key={id} data={item} />)}
+      {buildersList && buildersList.pledgers ? (
+        buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)
+      ) : (
+        <div>loading</div>
+      )}
     </MainContainer>
   );
 };
 
-export default Index;
+export default React.memo(Index);
