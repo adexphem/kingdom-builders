@@ -51,7 +51,11 @@ const Index = () => {
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
 
-      {buildersList && buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)}
+      {buildersList && buildersList.pledgers ? (
+        buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)
+      ) : (
+        <div>loading</div>
+      )}
     </MainContainer>
   );
 };
