@@ -1,4 +1,3 @@
-// import { CREATE_PLEDGER, RETRIEVE_PLEDGERS, UPDATE_PLEDGER } from "../actions/types";
 import { ActionTypes } from "../constants/actionTypes";
 
 const initialState = {
@@ -33,36 +32,14 @@ const initialState = {
   ],
 };
 
-function kingdomBuildersReducer(kBuilders = initialState, action) {
+function kingdomBuildersReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case ActionTypes.SET_BUILDERS_LIST:
-      return { ...kBuilders, pledgers: payload };
-
-    // case RETRIEVE_PLEDGERS:
-    //   return payload;
-
-    // case UPDATE_PLEDGER:
-    //   return kBuilders.map((list) => {
-    //     if (list.id === payload.id) {
-    //       return {
-    //         ...list,
-    //         ...payload,
-    //       };
-    //     } else {
-    //       return list;
-    //     }
-    //   });
-
-    // // case DELETE_TUTORIAL:
-    // //   return kBuilders.filter(({ id }) => id !== payload.id);
-
-    // // case DELETE_ALL_kBuilders:
-    // //   return [];
-
+    case ActionTypes.FETCH_KINGDOM_BUILDERS_LIST:
+      return { ...state, pledgers: payload };
     default:
-      return kBuilders;
+      return state;
   }
 }
 

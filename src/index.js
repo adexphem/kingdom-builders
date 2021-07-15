@@ -16,7 +16,6 @@ axios.interceptors.request.use((request) => {
     request.headers["Access-Control-Allow-Origin"] = "*";
     request.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept";
   }
-  console.log("request ", request);
 
   return request;
 });

@@ -71,7 +71,7 @@ const StyledCTAArea = styled.div`
 export const index = (props) => {
   const handleLogin = () => {
     const value =
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjYyOTcxNDB9.fHbrAsI898FAAWAd0SWeHZXOU2SjL2JYYtWCyIcTEvQ";
+      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjY0Mjk1NDN9.lFcs6q1VZEiTy8eCS50hq5rlOshs9DoACNDJT93l2V0";
     localStorage.setItem(LP70_TOKEN_ID, value);
     return (window.location.href = DASH);
   };

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
-import { config } from "../../config";
-import { setBuilderList } from "../../redux/actions/kingdomBuilderAction";
+import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
 import TableRows from "../../components/TableRows";
 
 const MainContainer = styled.div`
@@ -33,18 +31,8 @@ const Index = () => {
   const dispatch = useDispatch();
   const buildersList = useSelector((state) => state.kingdomBuilders);
 
-  const getPledgerList = async () => {
-    const response = await axios.get(`${config.baseUrl}/kingdom_builder`).catch((err) => {
-      console.log("Error", err);
-    });
-
-    if (response && response.data) {
-      dispatch(setBuilderList(response.data));
-    }
-  };
-
   useEffect(() => {
-    getPledgerList();
+    dispatch(fetchBuilderList());
   }, []);
 
   return (
