@@ -17,10 +17,7 @@ import Reports from "../Reports";
 
 const StyledContainer = styled.div`
   display: flex;
-  overflow: hidden;
-  position: relative;
-  top: 0;
-  bottom: 0;
+  justify-content: space-between;
 `;
 
 const StyledSidebar = styled.div`
@@ -32,6 +29,12 @@ const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  min-height: 300px;
+  overflow: auto;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 1px;
 
   ${up("md")} {
     min-width: 200px;

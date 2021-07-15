@@ -1,14 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 
 import App from "./App";
-import { LP70_TOKEN_ID, INDEX, LOGIN } from "./config/paths";
+// import { LP70_TOKEN_ID } from "./config/paths";
 
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-const token = localStorage.getItem(LP70_TOKEN_ID);
+// const token = localStorage.getItem(LP70_TOKEN_ID);
 
 // axios.interceptors.request.use((request) => {
 //   console.log("token", token);

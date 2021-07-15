@@ -5,7 +5,6 @@ import { up } from "styled-breakpoints";
 
 import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
 import TableRows from "../../components/TableRows";
-
 const MainContainer = styled.div`
   width: auto;
   background: ${({ theme }) => theme.color.white};
@@ -38,12 +37,8 @@ const Index = () => {
   return (
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
-
-      {buildersList && buildersList.pledgers ? (
-        buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)
-      ) : (
-        <div>loading</div>
-      )}
+      {!buildersList && <div>loading</div>}
+      {buildersList && buildersList.pledgers.map((item, id) => <TableRows key={id} data={item} />)}
     </MainContainer>
   );
 };
