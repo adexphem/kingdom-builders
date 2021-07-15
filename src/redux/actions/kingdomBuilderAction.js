@@ -1,6 +1,5 @@
-import axios from "axios";
 import { ActionTypes } from "../constants/actionTypes";
-import { config } from "../../config";
+import api from "../../apis";
 
 export const setBuilderList = (list) => {
   return {
@@ -11,11 +10,21 @@ export const setBuilderList = (list) => {
 
 export const fetchBuilderList = () => {
   return async (dispatch) => {
-    const response = await axios.get(`${config.baseUrl}/kingdom_builder`);
-
-    dispatch({
-      type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST,
-      payload: response.data,
-    });
+    await api
+      .get("/kingdom_builder")
+      .then((res) => {
+        console.log("response ", res);
+        dispatch({
+          type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST_FAILED,
+          payload: { error: "failed" },
+        });
+        console.log("error ", error.response);
+      });
   };
 };
