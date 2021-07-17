@@ -9,7 +9,7 @@ import MenuLogo from "./MenuLogo";
 import MenuItems from "./MenuItems";
 
 import { Menus } from "../../utilities/menuLinks";
-import { DASH, KINGDOM_BUILDERS, PROFILE, REPORT } from "../../config/paths";
+import { DASH, KINGDOM_BUILDERS, PROFILE, REPORT, LP70_TOKEN_ID, LP70_ACTIVE_TAB } from "../../config/paths";
 import Dashboard from "../Dashboard";
 import KingdomBuilders from "../KingdomBuilders";
 import Profile from "../MyProfile";
@@ -65,6 +65,8 @@ const StyledTopArea = styled.div`
 
 export const index = () => {
   const handleLogout = () => {
+    localStorage.removeItem(LP70_TOKEN_ID);
+    localStorage.removeItem(LP70_ACTIVE_TAB);
     return (window.location.href = "/");
   };
 

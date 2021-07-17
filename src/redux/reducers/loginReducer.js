@@ -1,15 +1,19 @@
 import { ActionTypes } from "../constants/actionTypes";
 
 const initialState = {
-  account: {},
+  inProgress: false,
 };
 
 function loginReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case ActionTypes.LOGIN:
+      return { ...state, ...payload };
     case ActionTypes.LOGIN_SUCCESS:
-      return { ...state, account: payload };
+      return { ...state, ...payload };
+    case ActionTypes.LOGIN_FAILURE:
+      return { ...state, ...payload };
     default:
       return state;
   }

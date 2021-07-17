@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
+import { DASH, LP70_TOKEN_ID } from "../../config/paths";
 import { passwordPattern, emailPattern } from "../../utilities/helpers";
+
+import { login } from "../../redux/actions/loginAction";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -72,7 +76,11 @@ const StyledCTAArea = styled.div`
 
 const LoginFormSchema = yup.object().shape({
   email: yup.string().email().required("Valid email address is required."),
-  password: yup.string().min(6).max(32).required("Password is required."),
+  password: yup
+    .string()
+    .min(6, "Minimum of 6 Alphanumeric characters required.")
+    .max(32)
+    .required("Password is required."),
 });
 
 const Index = () => {
@@ -82,17 +90,27 @@ const Index = () => {
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(LoginFormSchema) });
+  const dispatch = useDispatch();
+  const { auth_token = "", inProgress = false } = useSelector((state) => state.login);
 
   const onSubmitHandler = async (data) => {
-    console.log("data ", { data });
+    const { email, password } = data;
+
+    try {
+      await dispatch(login({ email: email, password: password }));
+    } catch (e) {
+      console.error("Failed to login: ", e);
+    }
 
     reset();
-
-    // const value =
-    //   "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjY0Mjk1NDN9.lFcs6q1VZEiTy8eCS50hq5rlOshs9DoACNDJT93l2V0";
-    // localStorage.setItem(LP70_TOKEN_ID, value);
-    // return (window.location.href = DASH);
   };
+
+  useEffect(() => {
+    if (!inProgress && auth_token.length >= 1) {
+      localStorage.setItem(LP70_TOKEN_ID, auth_token);
+      return (window.location.href = DASH);
+    }
+  }, [auth_token, inProgress]);
 
   return (
     <StyledContainer>
@@ -130,7 +148,7 @@ const Index = () => {
 
           <StyledCTAArea>
             <StyledButton>
-              <Button button_text="Sign In" type="submit" />
+              <Button id="loginFormBtn" button_text="Sign In" type="submit" inProgress={inProgress} />
             </StyledButton>
 
             <CreateAccount>

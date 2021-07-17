@@ -5,7 +5,6 @@ export const goToLogin = () => {
 };
 
 export const handleLogout = () => {
-  console.log("here");
   return goToLogin();
 };
 

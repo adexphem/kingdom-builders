@@ -5,7 +5,7 @@ export const login = (data) => {
   return async (dispatch) => {
     dispatch({
       type: ActionTypes.LOGIN,
-      inProgress: true,
+      payload: { inProgress: true },
     });
 
     await api
@@ -13,8 +13,7 @@ export const login = (data) => {
       .then((res) => {
         dispatch({
           type: ActionTypes.LOGIN_SUCCESS,
-          payload: res.data,
-          inProgress: false,
+          payload: { ...res.data, inProgress: false },
         });
       })
       .catch((error) => {
