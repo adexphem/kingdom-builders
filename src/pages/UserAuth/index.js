@@ -1,11 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
-import { DASH, LP70_TOKEN_ID } from "../../config/paths";
+import { passwordPattern, emailPattern } from "../../utilities/helpers";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -33,7 +35,7 @@ const StyledTitle = styled.div`
   }
 `;
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   margin-top: 40px;
   min-width: 350px;
 
@@ -68,49 +70,67 @@ const StyledCTAArea = styled.div`
   margin-top: 20px;
 `;
 
-export const index = (props) => {
-  const handleLogin = () => {
-    const value =
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjY0Mjk1NDN9.lFcs6q1VZEiTy8eCS50hq5rlOshs9DoACNDJT93l2V0";
-    localStorage.setItem(LP70_TOKEN_ID, value);
-    return (window.location.href = DASH);
+const LoginFormSchema = yup.object().shape({
+  email: yup.string().email().required("Valid email address is required."),
+  password: yup.string().min(6).max(32).required("Password is required."),
+});
+
+const Index = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(LoginFormSchema) });
+
+  const onSubmitHandler = async (data) => {
+    console.log("data ", { data });
+
+    reset();
+
+    // const value =
+    //   "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjY0Mjk1NDN9.lFcs6q1VZEiTy8eCS50hq5rlOshs9DoACNDJT93l2V0";
+    // localStorage.setItem(LP70_TOKEN_ID, value);
+    // return (window.location.href = DASH);
   };
 
   return (
     <StyledContainer>
       <PageContent>
         <StyledTitle>Access your account</StyledTitle>
-        <FormContainer>
+        <FormContainer id="loginForm" onSubmit={handleSubmit(onSubmitHandler)}>
           <Input
             placeholder="youremail@gmail.com"
             label="Email Address"
-            name="emailOtp"
-            minlength={5}
+            name="email"
+            id="email"
             autoFocus
             disabled={false}
-            onChange={() => {}}
             classes={`border-bottom`}
             errorMessage={""}
+            error={errors}
             type="email"
+            {...register("email", { pattern: emailPattern })}
           />
 
           <Input
             placeholder="Enter your password"
             label="Password"
             name="password"
-            minlength={5}
+            id="password"
             autoFocus
             disabled={false}
-            onChange={() => {}}
             classes={`border-bottom`}
             errorMessage={""}
             type="password"
+            error={errors}
             hasEye
+            {...register("password", { pattern: passwordPattern })}
           />
 
           <StyledCTAArea>
             <StyledButton>
-              <Button click_event={handleLogin} button_text="Sign In" />
+              <Button button_text="Sign In" type="submit" />
             </StyledButton>
 
             <CreateAccount>
@@ -123,8 +143,4 @@ export const index = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(index);
+export default Index;

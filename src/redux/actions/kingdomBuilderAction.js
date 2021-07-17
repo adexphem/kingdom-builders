@@ -13,7 +13,6 @@ export const fetchBuilderList = () => {
     await api
       .get("/kingdom_builder")
       .then((res) => {
-        console.log("response ", res);
         dispatch({
           type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST,
           payload: res.data,
@@ -21,7 +20,7 @@ export const fetchBuilderList = () => {
       })
       .catch((error) => {
         dispatch({
-          type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST_FAILED,
+          type: ActionTypes.FETCH_KINGDOM_BUILDERS_LIST_FAILURE,
           payload: { error: "failed" },
         });
         console.log("error ", error.response);
