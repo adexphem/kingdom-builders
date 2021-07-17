@@ -1,11 +1,17 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
 import { DASH, LP70_TOKEN_ID } from "../../config/paths";
+import { passwordPattern, emailPattern } from "../../utilities/helpers";
+
+import { login } from "../../redux/actions/loginAction";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -33,7 +39,7 @@ const StyledTitle = styled.div`
   }
 `;
 
-const FormContainer = styled.div`
+const FormContainer = styled.form`
   margin-top: 40px;
   min-width: 350px;
 
@@ -68,49 +74,81 @@ const StyledCTAArea = styled.div`
   margin-top: 20px;
 `;
 
-export const index = (props) => {
-  const handleLogin = () => {
-    const value =
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE2MjYyOTcxNDB9.fHbrAsI898FAAWAd0SWeHZXOU2SjL2JYYtWCyIcTEvQ";
-    localStorage.setItem(LP70_TOKEN_ID, value);
-    return (window.location.href = DASH);
+const LoginFormSchema = yup.object().shape({
+  email: yup.string().email().required("Valid email address is required."),
+  password: yup
+    .string()
+    .min(6, "Minimum of 6 Alphanumeric characters required.")
+    .max(32)
+    .required("Password is required."),
+});
+
+const Index = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(LoginFormSchema) });
+  const dispatch = useDispatch();
+  const { auth_token = "", inProgress = false } = useSelector((state) => state.login);
+
+  const onSubmitHandler = async (data) => {
+    const { email, password } = data;
+
+    try {
+      await dispatch(login({ email: email, password: password }));
+    } catch (e) {
+      console.error("Failed to login: ", e);
+    }
+
+    reset();
   };
+
+  useEffect(() => {
+    if (!inProgress && auth_token.length >= 1) {
+      localStorage.setItem(LP70_TOKEN_ID, auth_token);
+      return (window.location.href = DASH);
+    }
+  }, [auth_token, inProgress]);
 
   return (
     <StyledContainer>
       <PageContent>
         <StyledTitle>Access your account</StyledTitle>
-        <FormContainer>
+        <FormContainer id="loginForm" onSubmit={handleSubmit(onSubmitHandler)}>
           <Input
             placeholder="youremail@gmail.com"
             label="Email Address"
-            name="emailOtp"
-            minlength={5}
+            name="email"
+            id="email"
             autoFocus
             disabled={false}
-            onChange={() => {}}
             classes={`border-bottom`}
             errorMessage={""}
+            error={errors}
             type="email"
+            {...register("email", { pattern: emailPattern })}
           />
 
           <Input
             placeholder="Enter your password"
             label="Password"
             name="password"
-            minlength={5}
+            id="password"
             autoFocus
             disabled={false}
-            onChange={() => {}}
             classes={`border-bottom`}
             errorMessage={""}
             type="password"
+            error={errors}
             hasEye
+            {...register("password", { pattern: passwordPattern })}
           />
 
           <StyledCTAArea>
             <StyledButton>
-              <Button click_event={handleLogin} button_text="Sign In" />
+              <Button id="loginFormBtn" button_text="Sign In" type="submit" inProgress={inProgress} />
             </StyledButton>
 
             <CreateAccount>
@@ -123,8 +161,4 @@ export const index = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(index);
+export default Index;

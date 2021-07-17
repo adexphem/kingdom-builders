@@ -2,10 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
+import { Spinner } from "../";
+
 const StyledButton = styled.button`
   width: 100%;
   height: 41px;
-  background: ${({ theme }) => theme.color.btnGreen387833};
+  background: ${({ theme, inProgress }) => (inProgress ? `rgba(56,120,51,.5)` : theme.color.btnGreen387833)};
   border-radius: 4px;
   padding: 0;
   border: none;
@@ -24,21 +26,28 @@ const ButtonText = styled.span`
 `;
 
 const Button = (props) => {
+  const { inProgress, inactive, disabled, buttonId, name, value } = props;
   return (
     <StyledButton
-      name={props.name}
-      id={props.buttonId}
-      value={props.value}
-      disabled={props.disabled === true || props.inactive === true ? "disabled" : ""}
+      name={name}
+      id={buttonId}
+      value={value}
+      inProgress={inProgress}
+      disabled={disabled === true || inactive === true ? "disabled" : ""}
       onClick={props.click_event}
       type={props.type ? props.type : "button"}>
-      <ButtonText className="button-text">{props.children || props.button_text}</ButtonText>
+      {!inProgress ? (
+        <ButtonText>{props.children || props.button_text}</ButtonText>
+      ) : (
+        <Spinner color="#fff" size="sm" />
+      )}
     </StyledButton>
   );
 };
 
 Button.propTypes = {
   type: PropTypes.string,
+  inProgress: PropTypes.bool,
   name: PropTypes.string,
   value: PropTypes.string,
   classes: PropTypes.string,

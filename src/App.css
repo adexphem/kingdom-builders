@@ -4,3 +4,7 @@ body {
   background-color: #F6F6F6;
   font-family: "Work Sans, sans-serif";
 }
+
+* {
+  box-sizing: border-box;
+}

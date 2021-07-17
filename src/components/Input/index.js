@@ -23,7 +23,8 @@ const StyledInput = styled.input`
   padding: ${({ hasEye }) => (hasEye ? "10px 45px 10px 13px" : "10px 16px")};
   font-family: ${({ theme }) => theme.fonts.primary};
   background: ${({ theme }) => theme.color.white};
-  border: 1px solid ${({ theme }) => theme.color.borderStroke};
+  border: 1px solid
+    ${({ theme, error, name }) => (error && error[`${name}`] ? "rgba(162, 75, 59, .6)" : theme.color.borderStroke)};
   box-shadow: 0px 1px 2px rgba(184, 200, 224, 0.222055);
   color: ${({ theme }) => theme.color.titleGrey};
 
@@ -59,8 +60,17 @@ const StyledEye = styled.div`
   }
 `;
 
-const Input = (props) => {
-  const { label, required, errorMessage, hasEye } = props;
+const StyledError = styled.div`
+  color: rgba(162, 75, 59, 0.9);
+  font-size: 0.75rem;
+  padding: 0 20px;
+  margin-bottom: 20px;
+  margin-top: -5px;
+  font-family: ${({ theme }) => theme.fonts.primary};
+`;
+
+const Input = React.forwardRef((props, ref) => {
+  const { name, label, required, hasEye, error } = props;
 
   return (
     <label>
@@ -75,14 +85,14 @@ const Input = (props) => {
         <StyledInput
           autoComplete={props.autoComplete}
           autoFocus={props.autoFocus}
-          className={`input ${props.classes == null ? "" : props.classes}`}
           defaultValue={props.defaultValue}
           disabled={props.disabled ? "disabled" : ""}
           min={props.min}
           max={props.max}
           minLength={props.minlength}
           maxLength={props.maxlength}
-          name={props.name}
+          ref={ref}
+          name={name}
           onBlur={props.onBlur}
           onKeyUp={props.onKeyUp}
           onKeyDown={props.onKeyDown}
@@ -93,6 +103,7 @@ const Input = (props) => {
           type={props.type == null ? "text" : props.type}
           value={props.value}
           hasEye={hasEye}
+          error={error}
         />
 
         {hasEye && (
@@ -101,10 +112,10 @@ const Input = (props) => {
           </StyledEye>
         )}
       </InputContainer>
-      {errorMessage && <span className={"input__error"}>{errorMessage}</span>}
+      {error && error[`${name}`] && <StyledError>{error[`${name}`].message}</StyledError>}
     </label>
   );
-};
+});
 
 Input.propTypes = {
   amountField: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -119,7 +130,6 @@ Input.propTypes = {
   minlength: PropTypes.number,
   maxlength: PropTypes.number,
   phoneField: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  errorMessage: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string,
   onBlur: PropTypes.func,
@@ -127,6 +137,8 @@ Input.propTypes = {
   onKeyDown: PropTypes.func,
   onKeyPress: PropTypes.func,
   onChange: PropTypes.func,
+  error: PropTypes.any,
+  ref: PropTypes.any,
   placeholder: PropTypes.string,
   readOnly: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   type: PropTypes.string,

@@ -5,7 +5,6 @@ export const goToLogin = () => {
 };
 
 export const handleLogout = () => {
-  console.log("here");
   return goToLogin();
 };
 
@@ -22,3 +21,7 @@ export const removeCommas = (e) => {
 export const removeUnderscore = (e) => {
   return e.replace(/[_-]/g, " ");
 };
+
+export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+export const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;

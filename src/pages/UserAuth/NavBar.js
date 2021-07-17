@@ -39,7 +39,7 @@ const StyledButton = styled.div`
   width: 130px;
 `;
 
-const navBar = () => {
+const NavBar = () => {
   return (
     <Container>
       <NavWrapper>
@@ -49,11 +49,11 @@ const navBar = () => {
           </Link>
         </NavLogo>
         <StyledButton>
-          <Button click_event={goToLogin} button_text="Login" />
+          <Button click_event={goToLogin} button_text="See Details" />
         </StyledButton>
       </NavWrapper>
     </Container>
   );
 };
 
-export default navBar;
+export default React.memo(NavBar);

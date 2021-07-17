@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
 import { EyeIcon } from "../../../components/icons";
+import { unstable_concurrentAct } from "react-dom/test-utils";
 
 export const FlexWrapper = styled.div`
   display: flex;
+  box-sizing: initial;
 `;
 
 const ZoneListing = styled(FlexWrapper)`
@@ -62,22 +64,24 @@ const ZoneCount = styled.div`
   background-color: ${({ theme }) => theme.color.white};
 `;
 
-const Index = () => {
+const expectedZones = ["zone 1", "zone 2", "zone 3"];
+
+const Index = (data) => {
+  const zoneRows = data.data;
+  const filteredZoneRows =
+    (zoneRows && zoneRows.length > 0 && zoneRows.filter(({ name }) => expectedZones.includes(name))) || [];
+
   return (
     <Fragment>
       <CountTitle>Zonal Views</CountTitle>
-      <ZoneListing>
-        <StyledEyeIcon>
-          <EyeIcon /> Zone 2
-        </StyledEyeIcon>
-        <ZoneCount>12</ZoneCount>
-      </ZoneListing>
-      <ZoneListing>
-        <StyledEyeIcon>
-          <EyeIcon /> Zone 8
-        </StyledEyeIcon>
-        <ZoneCount>32</ZoneCount>
-      </ZoneListing>
+      {filteredZoneRows.map(({ name, count }, id) => (
+        <ZoneListing key={id}>
+          <StyledEyeIcon>
+            <EyeIcon /> {name}
+          </StyledEyeIcon>
+          <ZoneCount>{count}</ZoneCount>
+        </ZoneListing>
+      ))}
     </Fragment>
   );
 };
