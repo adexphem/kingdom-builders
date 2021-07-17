@@ -5,6 +5,7 @@ import { up } from "styled-breakpoints";
 
 import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
 import TableRows from "../../components/TableRows";
+
 const MainContainer = styled.div`
   width: auto;
   background: ${({ theme }) => theme.color.white};

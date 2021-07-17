@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
@@ -7,6 +8,8 @@ import { TextLink } from "../../components/";
 
 import ZoneListing from "./ZonalViews";
 import PaymentBreakdown from "./PaymentBreakdown";
+
+import { fetchBuildersCount, fetchZonalPledgersCount } from "../../redux/actions/kingdomBuilderAction";
 
 export const FlexWrapper = styled.div`
   display: flex;
@@ -95,6 +98,15 @@ const StyledTextLink = styled.div`
 `;
 
 const Index = () => {
+  const dispatch = useDispatch();
+  const buildersSelector = useSelector((state) => state.kingdomBuilders);
+  const { buildersCount } = buildersSelector;
+
+  useEffect(() => {
+    dispatch(fetchBuildersCount());
+    dispatch(fetchZonalPledgersCount());
+  }, []);
+
   return (
     <MainContainer>
       <StyledBreakdown>
@@ -103,7 +115,7 @@ const Index = () => {
             <CountTitle>
               Kingdom <br /> Builders
             </CountTitle>
-            <CountDisplay>1,800</CountDisplay>
+            <CountDisplay>{buildersSelector && buildersCount ? buildersSelector.buildersCount.count : 0}</CountDisplay>
           </TypeACard>
         </StyledKBuilders>
 

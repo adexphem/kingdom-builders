@@ -6,6 +6,7 @@ import { EyeIcon } from "../../../components/icons";
 
 export const FlexWrapper = styled.div`
   display: flex;
+  box-sizing: initial;
 `;
 
 const ZoneListing = styled(FlexWrapper)`

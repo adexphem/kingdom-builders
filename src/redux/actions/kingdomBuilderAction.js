@@ -27,3 +27,47 @@ export const fetchBuilderList = () => {
       });
   };
 };
+
+export const fetchBuildersCount = () => {
+  return async (dispatch) => {
+    await api
+      .get("/kingdom_builders/count")
+      .then((res) => {
+        dispatch({
+          type: ActionTypes.FETCH_KINGDOM_BUILDERS_COUNT,
+          payload: { ...res.data },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.FETCH_KINGDOM_BUILDERS_COUNT_FAILURE,
+          payload: { error: "failed" },
+        });
+        console.log("error ", error.response);
+      });
+  };
+};
+
+export const fetchZonalPledgersCount = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.FETCH_ZONAL_PLEDGERS_COUNT,
+      payload: { inProgress: true },
+    });
+
+    await api
+      .get("/kingdom_builders/zonal_pledgers/count")
+      .then((res) => {
+        dispatch({
+          type: ActionTypes.FETCH_ZONAL_PLEDGERS_COUNT_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.FETCH_ZONAL_PLEDGERS_COUNT_FAILURE,
+          payload: { error: "failed", inProgress: false },
+        });
+      });
+  };
+};
