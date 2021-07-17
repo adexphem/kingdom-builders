@@ -100,7 +100,7 @@ const StyledTextLink = styled.div`
 const Index = () => {
   const dispatch = useDispatch();
   const buildersSelector = useSelector((state) => state.kingdomBuilders);
-  const { buildersCount } = buildersSelector;
+  const { buildersCount, zonalViewCount = [] } = buildersSelector;
 
   useEffect(() => {
     dispatch(fetchBuildersCount());
@@ -115,7 +115,7 @@ const Index = () => {
             <CountTitle>
               Kingdom <br /> Builders
             </CountTitle>
-            <CountDisplay>{buildersSelector && buildersCount ? buildersSelector.buildersCount.count : 0}</CountDisplay>
+            <CountDisplay>{buildersCount ? buildersCount.count : 0}</CountDisplay>
           </TypeACard>
         </StyledKBuilders>
 
@@ -127,7 +127,7 @@ const Index = () => {
 
         <StyledKZones>
           <TypeACard>
-            <ZoneListing />
+            <ZoneListing data={zonalViewCount} />
             <StyledTextLink>
               <TextLink text="See all" showUnderline showArrow />
             </StyledTextLink>

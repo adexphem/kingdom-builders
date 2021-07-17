@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { up } from "styled-breakpoints";
 import { Switch, Route } from "react-router-dom";
 
@@ -14,6 +14,7 @@ import Dashboard from "../Dashboard";
 import KingdomBuilders from "../KingdomBuilders";
 import Profile from "../MyProfile";
 import Reports from "../Reports";
+import { logout } from "../../redux/actions/logoutAction";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -63,11 +64,15 @@ const StyledTopArea = styled.div`
   padding: 20px 0;
 `;
 
-export const index = () => {
-  const handleLogout = () => {
-    localStorage.removeItem(LP70_TOKEN_ID);
-    localStorage.removeItem(LP70_ACTIVE_TAB);
-    return (window.location.href = "/");
+export const Index = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    await dispatch(logout()).then(() => {
+      localStorage.removeItem(LP70_TOKEN_ID);
+      localStorage.removeItem(LP70_ACTIVE_TAB);
+      return (window.location.href = "/");
+    });
   };
 
   return (
@@ -95,8 +100,4 @@ export const index = () => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(index);
+export default React.memo(Index);
