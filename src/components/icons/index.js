@@ -6,5 +6,18 @@ import ProfileIcon from "./ProfileIcon";
 import ReportIcon from "./ReportIcon";
 import PeopleIcon from "./PeopleIcon";
 import RightArrowIcon from "./RightArrowIcon";
+import PaperMoneyIcon from "./PaperMoneyIcon";
+import CheckHexIcon from "./CheckHexIcon";
 
-export { LP70Logo, EyeIcon, LogoutIcon, OpenBookIcon, ProfileIcon, ReportIcon, PeopleIcon, RightArrowIcon };
+export {
+  LP70Logo,
+  EyeIcon,
+  LogoutIcon,
+  OpenBookIcon,
+  ProfileIcon,
+  ReportIcon,
+  PeopleIcon,
+  RightArrowIcon,
+  PaperMoneyIcon,
+  CheckHexIcon,
+};

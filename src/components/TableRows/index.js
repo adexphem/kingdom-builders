@@ -9,6 +9,7 @@ import StatusDot from "../StatusDot";
 
 import { numberWithCommas } from "../../utilities/helpers";
 import { KINGDOM_BUILDER_VIEW } from "../../config/paths";
+import { PaperMoneyIcon } from "../icons";
 
 dayjs.extend(utc);
 
@@ -39,6 +40,28 @@ const StyledCol = styled.div`
   flex-direction: column;
   display: ${({ hidden }) => (hidden ? "none" : "")};
 
+  ${({ fixedSvg, fixedCol, fixedName }) =>
+    (fixedSvg &&
+      css`
+        max-width: 35px !important;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+      `) ||
+    (fixedCol &&
+      css`
+        min-width: 105px !important;
+      `) ||
+    (fixedName &&
+      css`
+        min-width: 180px !important;
+      `)}
+
+  svg {
+    height: 14px;
+    fill: ${({ theme }) => theme.color.primary};
+  }
+
   ${up("md")} {
   }
 
@@ -47,12 +70,13 @@ const StyledCol = styled.div`
     padding: 3px 5px;
     flex: 1 1 0px;
     width: 0;
+    line-height: 1.35rem;
     display: ${({ hidden }) => (hidden ? "block" : "")};
   }
 `;
 
 const ColTitle = styled.div`
-  line-height: 1rem;
+  line-height: 1.2rem;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.color.paleGrey};
   text-transform: capitalize;
@@ -65,15 +89,14 @@ const ColTitle = styled.div`
     (fixedStatus &&
       css`
         width: 50px !important;
-        font-weight: bold;
       `)}
 
   ${up("md")} {
-    line-height: 1.275rem;
+    line-height: 1rem;
   }
 
   ${up("lg")} {
-    line-height: 1.875rem;
+    line-height: 1.2rem;
     display: "";
   }
 `;
@@ -118,33 +141,32 @@ const Index = ({ data }) => {
               <StatusDot status={data.status} />
             </ColBody>
           </StyledCol>
-          <StyledCol>
+          <StyledCol fixedName>
             <ColTitle>Fullname</ColTitle>
             <ColBody>{data.name}</ColBody>
           </StyledCol>
-          <StyledCol hidden>
+          <StyledCol hidden fixedCol>
             <ColTitle>Phone No.</ColTitle>
             <ColBody>{data.phone_number}</ColBody>
           </StyledCol>
           <StyledCol hidden>
-            <ColTitle>Payment Mode</ColTitle>
+            <ColTitle>Mode</ColTitle>
             <ColBody>{data.payment_mode}</ColBody>
           </StyledCol>
           <StyledCol>
-            <ColTitle>Amount Pledge</ColTitle>
+            <ColTitle>Amt Pledge</ColTitle>
             <ColBody>{`₦${numberWithCommas(data.amount_pledge)}`}</ColBody>
           </StyledCol>
           <StyledCol hidden>
-            <ColTitle>Amount Paid</ColTitle>
+            <ColTitle>Amt Paid</ColTitle>
             <ColBody>{`₦${numberWithCommas(data.total_amount_paid)}`}</ColBody>
           </StyledCol>
           <StyledCol hidden>
             <ColTitle>Added On</ColTitle>
             <ColBody>{formatDate(data.created_at)}</ColBody>
           </StyledCol>
-          <StyledCol>
-            <ColTitle>actions</ColTitle>
-            <ColBody></ColBody>
+          <StyledCol fixedSvg>
+            <PaperMoneyIcon />
           </StyledCol>
         </Fragment>
       )}
