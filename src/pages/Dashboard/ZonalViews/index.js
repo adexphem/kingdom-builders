@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { up } from "styled-breakpoints";
 
 import { EyeIcon } from "../../../components/icons";
-import { unstable_concurrentAct } from "react-dom/test-utils";
 
 export const FlexWrapper = styled.div`
   display: flex;

@@ -11,8 +11,16 @@ const MainContainer = styled.div`
   background: ${({ theme }) => theme.color.white};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   border-radius: 16px;
-  padding: 15px 20px;
+  padding: 15px 5px;
   font-family: ${({ theme }) => theme.fonts.primary};
+
+  ${up("md")} {
+    padding: 15px 10px;
+  }
+
+  ${up("lg")} {
+    padding: 15px 20px;
+  }
 `;
 
 const PageTitle = styled.h1`
@@ -33,7 +41,7 @@ const Index = () => {
 
   useEffect(() => {
     dispatch(fetchBuilderList());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContainer>

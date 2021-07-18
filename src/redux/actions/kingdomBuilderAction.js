@@ -71,3 +71,27 @@ export const fetchZonalPledgersCount = () => {
       });
   };
 };
+
+export const fetchPaymentBreakdownCount = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.FETCH_PAYMENT_BREAKDOWN_COUNT,
+      payload: { inProgress: true },
+    });
+
+    await api
+      .get("/kingdom_builders/payment_breakdown/count")
+      .then((res) => {
+        dispatch({
+          type: ActionTypes.FETCH_PAYMENT_BREAKDOWN_COUNT_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.FETCH_PAYMENT_BREAKDOWN_COUNT_FAILURE,
+          payload: { error: "failed", inProgress: false },
+        });
+      });
+  };
+};
