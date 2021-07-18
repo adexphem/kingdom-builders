@@ -59,7 +59,7 @@ const StyledButton = styled.div`
 const CreateAccount = styled.label`
   line-height: 3rem;
   font-family: ${({ theme }) => theme.fonts.primary};
-  color: ${({ theme }) => theme.color.linkGrey};
+  color: ${({ theme }) => theme.color.black};
   font-size: 0.875rem;
   text-align: center;
   display: block;

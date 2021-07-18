@@ -31,7 +31,8 @@ const StyledSidebar = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  min-height: 300px;
+  min-height: 760px;
+  min-width: 100px;
   overflow: auto;
   position: -webkit-sticky;
   position: sticky;
@@ -42,6 +43,7 @@ const StyledSidebar = styled.div`
   }
 
   ${up("lg")} {
+    min-height: 300px;
     min-width: 234px;
   }
 `;
@@ -49,7 +51,15 @@ const StyledSidebar = styled.div`
 const ContentArea = styled.div`
   width: 100vw;
   padding: 20px 5px;
-  margin: 0 20px;
+  margin: 0 8px;
+
+  ${up("md")} {
+    margin: 0 10px;
+  }
+
+  ${up("lg")} {
+    margin: 0 20px;
+  }
 `;
 
 const StyledLogoutLink = styled.div`

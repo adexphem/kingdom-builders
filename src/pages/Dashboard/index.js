@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { Bar } from "react-chartjs-2";
 
 import { TypeACard } from "../../components/";
 import { TextLink } from "../../components/";
@@ -9,7 +10,11 @@ import { TextLink } from "../../components/";
 import ZoneListing from "./ZonalViews";
 import PaymentBreakdown from "./PaymentBreakdown";
 
-import { fetchBuildersCount, fetchZonalPledgersCount } from "../../redux/actions/kingdomBuilderAction";
+import {
+  fetchBuildersCount,
+  fetchZonalPledgersCount,
+  fetchPaymentBreakdownCount,
+} from "../../redux/actions/kingdomBuilderAction";
 
 export const FlexWrapper = styled.div`
   display: flex;
@@ -17,9 +22,17 @@ export const FlexWrapper = styled.div`
 
 const MainContainer = styled(FlexWrapper)`
   width: auto;
-  padding: 15px 20px;
+  padding: 10px 5px;
   flex-direction: column;
   font-family: ${({ theme }) => theme.fonts.primary};
+
+  ${up("md")} {
+    padding: 15px 10px;
+  }
+
+  ${up("lg")} {
+    padding: 15px 20px;
+  }
 `;
 
 const StyledBreakdown = styled(FlexWrapper)`
@@ -48,7 +61,16 @@ const StyledKZones = styled.div`
 
 const BreakdownChart = styled.div`
   flex: 2 1 0;
-  margin: 0 40px;
+  margin: 20px 0;
+
+  ${up("md")} {
+    font-size: 1.875rem;
+  }
+
+  ${up("lg")} {
+    font-size: 2rem;
+    margin: 0 40px;
+  }
 `;
 
 const CountTitle = styled.div`
@@ -97,15 +119,43 @@ const StyledTextLink = styled.div`
   margin-top: 5px;
 `;
 
+const stateMap = {
+  labels: ["Zone 1", "Zone 2", "Zone 3", "Zone 4", "Zone 5"],
+  datasets: [
+    {
+      label: "Full",
+      backgroundColor: "rgba(241,247,241,1)",
+      borderColor: "rgba(0,0,0,.5)",
+      borderWidth: 1,
+      data: [65, 59, 80, 81, 56],
+    },
+    {
+      label: "Part",
+      backgroundColor: "rgba(210,235,252,1)",
+      borderColor: "rgba(0,0,0,.5)",
+      borderWidth: 1,
+      data: [13, 13, 44, 51, 16],
+    },
+    {
+      label: "Awaiting",
+      backgroundColor: "rgba(254,216,224,1)",
+      borderColor: "rgba(0,0,0,.5)",
+      borderWidth: 1,
+      data: [10, 23, 14, 11, 26],
+    },
+  ],
+};
+
 const Index = () => {
   const dispatch = useDispatch();
   const buildersSelector = useSelector((state) => state.kingdomBuilders);
-  const { buildersCount, zonalViewCount = [] } = buildersSelector;
+  const { buildersCount, zonalViewCount = [], paymentBreakdownCount = [] } = buildersSelector;
 
   useEffect(() => {
     dispatch(fetchBuildersCount());
     dispatch(fetchZonalPledgersCount());
-  }, []);
+    dispatch(fetchPaymentBreakdownCount());
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContainer>
@@ -121,7 +171,7 @@ const Index = () => {
 
         <BreakdownChart>
           <TypeACard>
-            <PaymentBreakdown />
+            <PaymentBreakdown data={paymentBreakdownCount} />
           </TypeACard>
         </BreakdownChart>
 
@@ -135,7 +185,33 @@ const Index = () => {
         </StyledKZones>
       </StyledBreakdown>
       <StyledChartContainer>
-        <TypeACard>Payment Distribution</TypeACard>
+        <TypeACard>
+          <div>
+            <Bar
+              data={stateMap}
+              options={{
+                title: {
+                  display: true,
+                  text: "H",
+                  fontSize: 10,
+                },
+                legend: {
+                  display: true,
+                  position: "left",
+                },
+                responsive: true,
+                scales: {
+                  x: {
+                    stacked: true,
+                  },
+                  y: {
+                    stacked: true,
+                  },
+                },
+              }}
+            />
+          </div>
+        </TypeACard>
       </StyledChartContainer>
     </MainContainer>
   );
