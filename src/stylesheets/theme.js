@@ -10,6 +10,7 @@ export const theme = {
     grey: "#F6F6F6",
     linkGrey: "#7D8592",
     paleGrey: "#91929E",
+    pallyGrey: "#626262",
     systemFail: "#ae4036",
     systemSuccess: "#219653",
     systemPending: "#2d9cdb",
