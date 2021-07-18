@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { useParams } from "react-router-dom";
 
 import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
-import TableRows from "../../components/TableRows";
 
 const MainContainer = styled.div`
   width: auto;
@@ -36,8 +36,14 @@ const PageTitle = styled.h1`
 `;
 
 const Index = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const pledgers = useSelector((state) => state.kingdomBuilders.pledgers);
+  // const selectedPledger = pledgers && pledgers.length > 0 && pledgers.find((item) => item.id === id);
+
+  // const selectedPledger = useCallback(() => {
+  //   pledgers && pledgers.length > 0 && pledgers.find((item) => item.id === params.id);
+  // }, [pledgers]);
 
   useEffect(() => {
     if (pledgers.length < 1) {
@@ -47,9 +53,8 @@ const Index = () => {
 
   return (
     <MainContainer>
-      <PageTitle>Kingdom Builders List</PageTitle>
-      {!pledgers && <div>loading</div>}
-      {pledgers && pledgers.length > 0 && pledgers.map((item, id) => <TableRows key={id} data={item} id={id} />)}
+      <PageTitle>Kingdom Builder</PageTitle>
+      <div>content</div>
     </MainContainer>
   );
 };

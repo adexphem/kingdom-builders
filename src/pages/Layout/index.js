@@ -9,9 +9,18 @@ import MenuLogo from "./MenuLogo";
 import MenuItems from "./MenuItems";
 
 import { Menus } from "../../utilities/menuLinks";
-import { DASH, KINGDOM_BUILDERS, PROFILE, REPORT, LP70_TOKEN_ID, LP70_ACTIVE_TAB } from "../../config/paths";
+import {
+  DASH,
+  KINGDOM_BUILDERS,
+  KINGDOM_BUILDER_VIEW,
+  PROFILE,
+  REPORT,
+  LP70_TOKEN_ID,
+  LP70_ACTIVE_TAB,
+} from "../../config/paths";
 import Dashboard from "../Dashboard";
 import KingdomBuilders from "../KingdomBuilders";
+import KingdomBuilderView from "../KingdomBuilders/SingleView";
 import Profile from "../MyProfile";
 import Reports from "../Reports";
 import { logout } from "../../redux/actions/logoutAction";
@@ -101,6 +110,7 @@ export const Index = () => {
         <Switch>
           <Route path={DASH} component={Dashboard} />
           <Route path={KINGDOM_BUILDERS} component={KingdomBuilders} />
+          <Route path={`${KINGDOM_BUILDER_VIEW}:id`} component={KingdomBuilderView} />
           <Route path={PROFILE} component={Profile} />
           <Route path={REPORT} component={Reports} />
           <Route>404 Not Found!</Route>

@@ -2,14 +2,16 @@ import React, { Fragment } from "react";
 import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { Link } from "react-router-dom";
 
 import StatusDot from "../StatusDot";
 
-import { numberWithCommas, removeUnderscore } from "../../utilities/helpers";
+import { numberWithCommas } from "../../utilities/helpers";
+import { KINGDOM_BUILDER_VIEW } from "../../config/paths";
 
 dayjs.extend(utc);
 
-const StyledContainer = styled.div`
+const StyledContainer = styled(Link)`
   width: auto;
   display: flex;
   justify-content: space-between;
@@ -20,10 +22,10 @@ const StyledContainer = styled.div`
   margin-bottom: 18px;
   background-color: ${({ theme }) => theme.color.white};
   transition: box-shadow 0.6s;
+  text-decoration: none;
 
   &:hover {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
     cursor: pointer;
   }
 `;
@@ -70,7 +72,9 @@ const ColBody = styled.div`
   font-size: 0.875rem;
   white-space: nowrap;
   overflow: scroll;
+  color: ${({ theme }) => theme.color.black};
   text-overflow: ellipsis;
+  text-transform: capitalize;
   height: 20px;
 
   ${hideScrollbars}
@@ -80,42 +84,47 @@ const formatDate = (value) => {
   return dayjs.utc(value).format("DD MMM YYYY") || "22 Aug 2021";
 };
 
-const formatHeader = (item) => {
-  const isCheck = item[0] === "amount_pledge" || item[0] === "total_amount_paid";
-  return isCheck ? <ColBody>{`₦${numberWithCommas(item[1])}`}</ColBody> : <ColBody>{item[1]}</ColBody>;
-};
-
-const expectedHeaders = ["status", "amount_pledge", "email", "name", "payment_mode", "total_amount_paid"];
-
 const Index = ({ data }) => {
-  const rowValue = Object.entries(data);
-
   return (
-    <StyledContainer>
-      {data &&
-        rowValue.map((item, id) => (
-          <Fragment key={id}>
-            {expectedHeaders.includes(`${item[0]}`) && (
-              <StyledCol>
-                <ColTitle>{item[0] === "total_amount_paid" ? "Paid" : removeUnderscore(item[0])}</ColTitle>
-
-                {item[0] === "status" && (
-                  <ColBody>
-                    <StatusDot status={item[1]} />
-                  </ColBody>
-                )}
-
-                {item[0] === "date" ? (
-                  <ColBody>{formatDate(item[1])}</ColBody>
-                ) : item[0] !== "status" ? (
-                  formatHeader(item)
-                ) : (
-                  ""
-                )}
-              </StyledCol>
-            )}
-          </Fragment>
-        ))}
+    <StyledContainer to={`${KINGDOM_BUILDER_VIEW}${data.id}`}>
+      {data && (
+        <Fragment>
+          <StyledCol>
+            <ColTitle>Status</ColTitle>
+            <ColBody>
+              <StatusDot status={data.status} />
+            </ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Fullname</ColTitle>
+            <ColBody>{data.name}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Phone No.</ColTitle>
+            <ColBody>{data.phone_number}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Payment Mode</ColTitle>
+            <ColBody>{data.payment_mode}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Amount Pledge</ColTitle>
+            <ColBody>{`₦${numberWithCommas(data.amount_pledge)}`}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Amount Paid</ColTitle>
+            <ColBody>{`₦${numberWithCommas(data.total_amount_paid)}`}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>Added On</ColTitle>
+            <ColBody>{formatDate(data.created_at)}</ColBody>
+          </StyledCol>
+          <StyledCol>
+            <ColTitle>actions</ColTitle>
+            <ColBody></ColBody>
+          </StyledCol>
+        </Fragment>
+      )}
     </StyledContainer>
   );
 };

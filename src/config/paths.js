@@ -1,10 +1,11 @@
-export const LOGIN = "/lp70/login";
+export const LOGIN = "/login";
 export const INDEX = "/";
-export const DASH = "/lp70/dash";
-export const PROFILE = "/lp70/profile";
-export const REPORT = "/lp70/reports";
-export const KINGDOM_BUILDERS = "/lp70/kingdom-builders";
+export const DASH = "/dash";
+export const PROFILE = "/profile";
+export const REPORT = "/reports";
+export const KINGDOM_BUILDERS = "/kingdom-builders";
+export const KINGDOM_BUILDER_VIEW = "/kingdom-builder/";
 
 // localstorage usage
 export const LP70_ACTIVE_TAB = "LP70_ACTIVE_TAB";
-export const LP70_TOKEN_ID = "x_lp70_token" 
+export const LP70_TOKEN_ID = "x_lp70_token";
