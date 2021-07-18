@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
@@ -27,11 +27,15 @@ const PageTitle = styled.h1`
   width: 100%;
   line-height: 1.875rem;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
 
+  ${up("md")} {
+    font-size: 1.3rem;
+  }
+
   ${up("lg")} {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
   }
 `;
 
@@ -39,22 +43,23 @@ const Index = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const pledgers = useSelector((state) => state.kingdomBuilders.pledgers);
-  // const selectedPledger = pledgers && pledgers.length > 0 && pledgers.find((item) => item.id === id);
-
-  // const selectedPledger = useCallback(() => {
-  //   pledgers && pledgers.length > 0 && pledgers.find((item) => item.id === params.id);
-  // }, [pledgers]);
+  const [selectedPledger, updateSelectedPledger] = useState("");
 
   useEffect(() => {
     if (pledgers.length < 1) {
       dispatch(fetchBuilderList());
+    } else {
+      updateSelectedPledger(pledgers.find((item) => item.id == id));
     }
   }, [pledgers]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContainer>
       <PageTitle>Kingdom Builder</PageTitle>
-      <div>content</div>
+      <div>
+        <div>{selectedPledger.name}</div>
+        <div>{selectedPledger.phone_number}</div>
+      </div>
     </MainContainer>
   );
 };

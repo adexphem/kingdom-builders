@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { Link } from "react-router-dom";
+import { up } from "styled-breakpoints";
 
 import StatusDot from "../StatusDot";
 
@@ -35,10 +36,23 @@ const StyledCol = styled.div`
   padding: 3px 5px;
   flex: 1 1 0px;
   width: 0;
+  flex-direction: column;
+  display: ${({ hidden }) => (hidden ? "none" : "")};
+
+  ${up("md")} {
+  }
+
+  ${up("lg")} {
+    word-wrap: normal;
+    padding: 3px 5px;
+    flex: 1 1 0px;
+    width: 0;
+    display: ${({ hidden }) => (hidden ? "block" : "")};
+  }
 `;
 
 const ColTitle = styled.div`
-  line-height: 1.875rem;
+  line-height: 1rem;
   font-size: 0.75rem;
   color: ${({ theme }) => theme.color.paleGrey};
   text-transform: capitalize;
@@ -53,6 +67,15 @@ const ColTitle = styled.div`
         width: 50px !important;
         font-weight: bold;
       `)}
+
+  ${up("md")} {
+    line-height: 1.275rem;
+  }
+
+  ${up("lg")} {
+    line-height: 1.875rem;
+    display: "";
+  }
 `;
 
 const hideScrollbars = css`
@@ -99,11 +122,11 @@ const Index = ({ data }) => {
             <ColTitle>Fullname</ColTitle>
             <ColBody>{data.name}</ColBody>
           </StyledCol>
-          <StyledCol>
+          <StyledCol hidden>
             <ColTitle>Phone No.</ColTitle>
             <ColBody>{data.phone_number}</ColBody>
           </StyledCol>
-          <StyledCol>
+          <StyledCol hidden>
             <ColTitle>Payment Mode</ColTitle>
             <ColBody>{data.payment_mode}</ColBody>
           </StyledCol>
@@ -111,11 +134,11 @@ const Index = ({ data }) => {
             <ColTitle>Amount Pledge</ColTitle>
             <ColBody>{`₦${numberWithCommas(data.amount_pledge)}`}</ColBody>
           </StyledCol>
-          <StyledCol>
+          <StyledCol hidden>
             <ColTitle>Amount Paid</ColTitle>
             <ColBody>{`₦${numberWithCommas(data.total_amount_paid)}`}</ColBody>
           </StyledCol>
-          <StyledCol>
+          <StyledCol hidden>
             <ColTitle>Added On</ColTitle>
             <ColBody>{formatDate(data.created_at)}</ColBody>
           </StyledCol>
