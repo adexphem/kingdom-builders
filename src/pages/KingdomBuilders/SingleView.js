@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
 
-import { Button } from "../../components";
+import { Button, PaymentProgression } from "../../components";
 import { CheckHexIcon } from "../../components/icons";
 
 export const FlexWrapper = styled.div`
@@ -55,11 +55,6 @@ const ViewContent = styled(FlexWrapper)`
 const DetailsCard = styled.div`
   width: 100%;
   margin-right: 20px;
-`;
-
-const PaymentProgression = styled(SimpleCard)`
-  margin-bottom: 15px;
-  width: 100%;
 `;
 
 const PaymentTable = styled(SimpleCard)`
@@ -158,12 +153,12 @@ const Index = () => {
           </StyledText>
         </StyledProfileName>
         <StyledButton>
-          <Button button_text="+ New Payment" id="makePaymentBtn" />
+          <Button button_text="+ Make Payment" id="makePaymentBtn" />
         </StyledButton>
       </PageTitle>
       <ViewContent>
         <DetailsCard>
-          <PaymentProgression>payment progression</PaymentProgression>
+          <PaymentProgression amount_pledge={selectedPledger.amount_pledge} />
           <PaymentTable>payment table</PaymentTable>
         </DetailsCard>
         <InfoCard>right</InfoCard>
