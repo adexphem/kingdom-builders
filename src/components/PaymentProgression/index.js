@@ -1,7 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import { up } from "styled-breakpoints";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
+import ChangingProgressProvider from "../../Providers/ChangingProgressProvider";
 import { TextLink } from "../index";
 import { numberWithCommas } from "../../utilities/helpers";
 
@@ -95,9 +98,14 @@ const PaymentLabel = styled.div`
   }
 `;
 
-const StyledPie = styled.div``;
+const StyledSemiCircle = styled.div`
+  display: flex;
+  width: 90%;
+`;
 
-const index = ({ amount_pledge = "0", amount_paid = "55000" }) => {
+const Index = ({ amount_pledge = "0", amount_paid = "0" }) => {
+  const percentage = (amount_paid / amount_pledge) * 100;
+
   return (
     <PaymentProgression>
       <StyledDetails>
@@ -109,9 +117,24 @@ const index = ({ amount_pledge = "0", amount_paid = "55000" }) => {
         </PaymentLabel>
         <TextLink text="Make Payment" showUnderline showArrow />
       </StyledDetails>
-      <StyledPie>right</StyledPie>
+      <StyledSemiCircle>
+        <ChangingProgressProvider values={[`${percentage.toFixed(1)}`]}>
+          {(value) => (
+            <CircularProgressbar
+              value={value}
+              text={`${value}%`}
+              circleRatio={0.5}
+              styles={buildStyles({
+                rotation: 1 / 2 + 1 / 4,
+                strokeLinecap: "butt",
+                trailColor: "#eee",
+              })}
+            />
+          )}
+        </ChangingProgressProvider>
+      </StyledSemiCircle>
     </PaymentProgression>
   );
 };
 
-export default React.memo(index);
+export default React.memo(Index);

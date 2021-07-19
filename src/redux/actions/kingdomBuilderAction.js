@@ -95,3 +95,27 @@ export const fetchPaymentBreakdownCount = () => {
       });
   };
 };
+
+export const fetchPledgerAmountPaid = (email) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.FETCH_PLEDGER_TOTAL_AMOUNT_PAID,
+      payload: { inProgress: true },
+    });
+
+    await api
+      .get(`/kingdom_builder_payment/amount_paid/total?email=${email}`)
+      .then((res) => {
+        dispatch({
+          type: ActionTypes.FETCH_PLEDGER_TOTAL_AMOUNT_PAID_SUCCESS,
+          payload: res.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.FETCH_PLEDGER_TOTAL_AMOUNT_PAID_FAILURE,
+          payload: { error: "failed", inProgress: false },
+        });
+      });
+  };
+};
