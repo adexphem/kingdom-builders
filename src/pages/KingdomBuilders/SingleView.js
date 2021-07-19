@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { up } from "styled-breakpoints";
 import { useParams } from "react-router-dom";
 
-import { fetchBuilderList } from "../../redux/actions/kingdomBuilderAction";
+import { fetchBuilderList, fetchPledgerAmountPaid } from "../../redux/actions/kingdomBuilderAction";
 
 import { Button, PaymentProgression } from "../../components";
 import { CheckHexIcon } from "../../components/icons";
@@ -131,15 +131,29 @@ const Index = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const pledgers = useSelector((state) => state.kingdomBuilders.pledgers);
+  const pledgerAmountPaid = useSelector((state) => state.kingdomBuilders.pledgerTotalAmountPaid);
   const [selectedPledger, updateSelectedPledger] = useState("");
+
+  const handleDataFetch = () => {
+    updateSelectedPledger(pledgers.find((item) => item.id == id));
+
+    if (selectedPledger && selectedPledger.email.length > 0) {
+      dispatch(fetchPledgerAmountPaid(selectedPledger.email));
+    }
+  };
 
   useEffect(() => {
     if (pledgers.length < 1) {
       dispatch(fetchBuilderList());
+      handleDataFetch();
     } else {
       updateSelectedPledger(pledgers.find((item) => item.id == id));
     }
   }, [pledgers]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    handleDataFetch();
+  }, [selectedPledger]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <MainContainer>
@@ -149,7 +163,7 @@ const Index = () => {
             <CheckHexIcon />
           </StyledHexIcon>
           <StyledText>
-            {selectedPledger.name} <span>Portfolio</span>
+            {selectedPledger && selectedPledger.name} <span>Portfolio</span>
           </StyledText>
         </StyledProfileName>
         <StyledButton>
@@ -158,7 +172,10 @@ const Index = () => {
       </PageTitle>
       <ViewContent>
         <DetailsCard>
-          <PaymentProgression amount_pledge={selectedPledger.amount_pledge} />
+          <PaymentProgression
+            amount_pledge={selectedPledger ? selectedPledger.amount_pledge : 0}
+            amount_paid={pledgerAmountPaid ? pledgerAmountPaid.total : 0}
+          />
           <PaymentTable>payment table</PaymentTable>
         </DetailsCard>
         <InfoCard>right</InfoCard>
