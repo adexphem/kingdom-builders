@@ -1,136 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
-import { up } from "styled-breakpoints";
 import { useParams } from "react-router-dom";
 
-import { fetchBuilderList, fetchPledgerAmountPaid } from "../../redux/actions/kingdomBuilderAction";
+import {
+  fetchBuilderList,
+  fetchPledgerAmountPaid,
+  fetchPaymentDetailsById,
+} from "../../redux/actions/kingdomBuilderAction";
 
 import { Button, PaymentProgression } from "../../components";
-import { CheckHexIcon } from "../../components/icons";
+import { CheckHexIcon, SadIcon } from "../../components/icons";
+import TableRows from "../../components/TableRows";
 
-export const FlexWrapper = styled.div`
-  display: flex;
-`;
+import { SmEmpty } from "../../components/TableRows/EmptyHeaders";
 
-export const SimpleCard = styled.div`
-  padding: 6px 12px;
-  border-radius: 5px;
-  box-shadow: 0px 6px 58px rgba(196, 203, 214, 0.2236);
-  background-color: ${({ theme }) => theme.color.white};
-  transition: box-shadow 0.8s;
-  text-decoration: none;
-
-  &:hover {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-  }
-`;
-
-const MainContainer = styled.div`
-  width: auto;
-  padding: 15px 5px;
-  font-family: ${({ theme }) => theme.fonts.primary};
-
-  ${up("md")} {
-    padding: 15px 10px;
-  }
-
-  ${up("lg")} {
-    padding: 15px 10px;
-  }
-`;
-
-const ViewContent = styled(FlexWrapper)`
-  width: auto;
-  flex: 1 1 0px;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: ${({ theme }) => theme.fonts.primary};
-
-  ${up("lg")} {
-    flex-direction: row;
-  }
-`;
-
-const DetailsCard = styled.div`
-  width: 100%;
-  margin-right: 20px;
-`;
-
-const PaymentTable = styled(SimpleCard)`
-  width: 100%;
-`;
-
-const InfoCard = styled(SimpleCard)`
-  min-width: 200px;
-
-  ${up("md")} {
-    min-width: 300px;
-  }
-
-  ${up("lg")} {
-    min-width: 400px;
-  }
-`;
-
-const PageTitle = styled.h1`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  line-height: 1.875rem;
-`;
-
-const StyledProfileName = styled(FlexWrapper)`
-  align-items: center;
-`;
-
-const StyledText = styled.div`
-  font-size: 1.875rem;
-  font-weight: ${({ theme }) => theme.fontWeight.regular};
-
-  span {
-    color: ${({ theme }) => theme.color.pallyGrey};
-  }
-
-  ${up("md")} {
-    font-size: 1rem;
-  }
-
-  ${up("lg")} {
-    font-size: 1.875rem;
-  }
-`;
-
-const StyledHexIcon = styled.div`
-  align-content: center;
-  display: flex;
-  margin-right: 5px;
-
-  svg {
-    height: 24px;
-    fill: ${({ theme }) => theme.color.primary};
-  }
-`;
-
-const StyledButton = styled.div`
-  width: 150px;
-  font-size: 1.5rem;
-
-  ${up("md")} {
-    font-size: 1rem;
-  }
-
-  ${up("lg")} {
-    font-size: 1.5rem;
-  }
-`;
+import {
+  MainContainer,
+  PaymentTable,
+  InfoCard,
+  DetailsCard,
+  ViewContent,
+  PageTitle,
+  StyledProfileName,
+  StyledText,
+  Title,
+  StyledButton,
+  StyledHexIcon,
+  EmptyContent,
+  EmptyContentText,
+} from "./styles";
 
 const Index = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const pledgers = useSelector((state) => state.kingdomBuilders.pledgers);
+  const paymentDetails = useSelector((state) => state.kingdomBuilders.paymentDetails);
   const pledgerAmountPaid = useSelector((state) => state.kingdomBuilders.pledgerTotalAmountPaid);
   const [selectedPledger, updateSelectedPledger] = useState("");
 
@@ -139,6 +43,7 @@ const Index = () => {
 
     if (selectedPledger && selectedPledger.email.length > 0) {
       dispatch(fetchPledgerAmountPaid(selectedPledger.email));
+      dispatch(fetchPaymentDetailsById(selectedPledger.id));
     }
   };
 
@@ -176,7 +81,20 @@ const Index = () => {
             amount_pledge={selectedPledger ? selectedPledger.amount_pledge : 0}
             amount_paid={pledgerAmountPaid ? pledgerAmountPaid.total : 0}
           />
-          <PaymentTable>payment table</PaymentTable>
+          <PaymentTable>
+            <Fragment>
+              <Title>Payment Record</Title>
+              {paymentDetails && paymentDetails.length > 0 ? (
+                paymentDetails.map((item, id) => <TableRows key={id} data={item} id={id} type="sm" />)
+              ) : (
+                <EmptyContent>
+                  <SmEmpty />
+                  <SadIcon />
+                  <EmptyContentText>No payment record yet!</EmptyContentText>
+                </EmptyContent>
+              )}
+            </Fragment>
+          </PaymentTable>
         </DetailsCard>
         <InfoCard>right</InfoCard>
       </ViewContent>

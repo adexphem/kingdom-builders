@@ -6,6 +6,7 @@ const initialState = {
   zonalViewCount: [],
   paymentBreakdownCount: [],
   pledgerTotalAmountPaid: 0,
+  paymentDetails: [],
 };
 
 function kingdomBuildersReducer(state = initialState, action) {
@@ -37,6 +38,13 @@ function kingdomBuildersReducer(state = initialState, action) {
     case ActionTypes.FETCH_PLEDGER_TOTAL_AMOUNT_PAID_SUCCESS:
       return { ...state, pledgerTotalAmountPaid: payload };
     case ActionTypes.FETCH_PLEDGER_TOTAL_AMOUNT_PAID_FAILURE:
+      return { ...state, ...payload };
+
+    case ActionTypes.FETCH_PLEDGER_PAYMENT_DETAILS_BY_ID:
+      return { ...state, paymentDetails: payload };
+    case ActionTypes.FETCH_PLEDGER_PAYMENT_DETAILS_BY_ID_SUCCESS:
+      return { ...state, paymentDetails: payload };
+    case ActionTypes.FETCH_PLEDGER_PAYMENT_DETAILS_BY_ID_FAILURE:
       return { ...state, ...payload };
 
     default:

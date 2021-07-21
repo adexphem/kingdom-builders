@@ -8,7 +8,7 @@ import * as yup from "yup";
 
 import { Button, Input } from "../../components";
 import { config } from "../../config";
-import { DASH, LP70_TOKEN_ID } from "../../config/paths";
+import { DASH, LP70_TOKEN_ID, LP70_ACTIVE_TAB } from "../../config/paths";
 import { passwordPattern, emailPattern } from "../../utilities/helpers";
 
 import { login } from "../../redux/actions/loginAction";
@@ -107,6 +107,7 @@ const Index = () => {
 
   useEffect(() => {
     if (!inProgress && auth_token.length >= 1) {
+      localStorage.removeItem(LP70_ACTIVE_TAB);
       localStorage.setItem(LP70_TOKEN_ID, auth_token);
       return (window.location.href = DASH);
     }
