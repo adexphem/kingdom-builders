@@ -49,7 +49,9 @@ const Index = () => {
     <MainContainer>
       <PageTitle>Kingdom Builders List</PageTitle>
       {!pledgers && <div>loading</div>}
-      {pledgers && pledgers.length > 0 && pledgers.map((item, id) => <TableRows key={id} data={item} id={id} />)}
+      {pledgers &&
+        pledgers.length > 0 &&
+        pledgers.map((item, id) => <TableRows key={id} data={item} id={id} type="xl" />)}
     </MainContainer>
   );
 };

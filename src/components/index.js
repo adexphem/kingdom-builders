@@ -5,5 +5,6 @@ import Input from "./Input";
 import MenuLinks from "./MenuLinks";
 import TypeACard from "./Cards/TypeA";
 import PaymentProgression from "./PaymentProgression";
+import Modal from "./Modal";
 
-export { Button, Input, TextLink, MenuLinks, PaymentProgression, TypeACard, Spinner };
+export { Button, Input, Modal, TextLink, MenuLinks, PaymentProgression, TypeACard, Spinner };
