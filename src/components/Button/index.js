@@ -1,19 +1,50 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { Spinner } from "../";
+import EmailIcon from "../icons/EmailIcon";
 
 const StyledButton = styled.button`
   width: 100%;
   height: 41px;
-  background: ${({ theme, inProgress }) => (inProgress ? `rgba(56,120,51,.5)` : theme.color.btnGreen387833)};
   border-radius: 4px;
   padding: 0;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ inProgress, type }) =>
+    (inProgress &&
+      css`
+        background: "rgba(56,120,51,.5)";
+      `) ||
+    (type === "email" &&
+      css`
+        background: ${({ theme }) => theme.color.btnGreen9CD6A4};
+      `) ||
+    css`
+      background: ${({ theme }) => theme.color.btnGreen387833};
+    `}
 
   &:hover {
     cursor: pointer;
+  }
+
+  svg {
+    height: 14px;
+    fill: ${({ theme }) => theme.color.white};
+    margin-right: 3px;
+
+    ${({ type }) =>
+      (type === "email" &&
+        css`
+          fill: ${({ theme }) => theme.color.color1E411B};
+        `) ||
+      css`
+        fill: ${({ theme }) => theme.color.white};
+      `}
   }
 `;
 
@@ -22,11 +53,24 @@ const ButtonText = styled.span`
   font-size: 1rem;
   line-height: 1.25rem;
   font-family: ${({ theme }) => theme.fonts.primary};
-  color: ${({ theme }) => theme.color.white};
+
+  ${({ type }) =>
+    (type === "email" &&
+      css`
+        color: ${({ theme }) => theme.color.color1E411B};
+      `) ||
+    css`
+      color: ${({ theme }) => theme.color.white};
+    `}
 `;
 
+const iconComp = {
+  email: <EmailIcon />,
+};
+
 const Button = (props) => {
-  const { inProgress, inactive, disabled, buttonId, name, value } = props;
+  const { inProgress, inactive, disabled, buttonId, name, value, icon, type } = props;
+
   return (
     <StyledButton
       name={name}
@@ -35,9 +79,12 @@ const Button = (props) => {
       inProgress={inProgress}
       disabled={disabled === true || inactive === true ? "disabled" : ""}
       onClick={props.click_event}
-      type={props.type ? props.type : "button"}>
+      type={type ? type : "button"}>
       {!inProgress ? (
-        <ButtonText>{props.children || props.button_text}</ButtonText>
+        <Fragment>
+          {icon ? iconComp[`${icon}`] : ""}
+          <ButtonText type={type ? type : "button"}>{props.children || props.button_text}</ButtonText>
+        </Fragment>
       ) : (
         <Spinner color="#fff" size="sm" />
       )}
@@ -46,13 +93,12 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  type: PropTypes.string,
   inProgress: PropTypes.bool,
   name: PropTypes.string,
   value: PropTypes.string,
   classes: PropTypes.string,
   buttonId: PropTypes.string,
-  button_text: PropTypes.string,
+  type: PropTypes.string,
   disabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   click_event: PropTypes.func,
 };
