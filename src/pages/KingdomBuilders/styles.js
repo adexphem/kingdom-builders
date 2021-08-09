@@ -56,6 +56,8 @@ export const PaymentTable = styled(SimpleCard)`
 export const InfoCard = styled(SimpleCard)`
   min-width: 200px;
   margin-top: 15px;
+  height: fit-content;
+  padding: 20px;
 
   ${up("md")} {
     min-width: 300px;
@@ -120,6 +122,15 @@ export const InfoCardDetails = styled.div`
   margin-top: 20px;
 `;
 
+export const InforCardActions = styled(FlexWrapper)`
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    max-width: 170px;
+  }
+`;
+
 export const DetailRow = styled(FlexWrapper)`
   justify-content: space-between;
   padding: 5px 0;
@@ -143,6 +154,7 @@ export const DetailBulletText = styled.div`
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: ${({ theme }) => theme.color.color032E00};
+  text-transform: capitalize;
 `;
 
 export const PageTitle = styled.h1`

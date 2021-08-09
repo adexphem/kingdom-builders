@@ -3,6 +3,9 @@ import React from "react";
 import ProfileIcon from "../../components/icons/ProfileIcon";
 import EmailIcon from "../../components/icons/EmailIcon";
 import MobileIcon from "../../components/icons/MobileIcon";
+import { Button } from "../../components";
+import { formatDate, numberWithCommas } from "../../utilities/helpers";
+
 import {
   InfoCard as Card,
   InfoCardTitle,
@@ -15,11 +18,13 @@ import {
   DetailBullet,
   DetailRow,
   DetailBulletText,
+  InforCardActions,
 } from "./styles";
 
 const InfoCard = ({ profile, paymentDetails }) => {
-  let isPaymentMade = paymentDetails.length > 0;
+  const isPaymentMade = paymentDetails.length > 0;
   const { name, email, phone_number, areas_id, payment_mode, pledge_type, status, amount_pledge } = profile || {};
+  const lastPaidDay = isPaymentMade ? paymentDetails[paymentDetails.length - 1].created_at : "";
 
   return (
     <Card>
@@ -71,15 +76,19 @@ const InfoCard = ({ profile, paymentDetails }) => {
         <DetailRow>
           <DetailBullet>
             <label>Last Payment</label>
-            <DetailBulletText>{isPaymentMade ? "Yes" : "No payment yet"}</DetailBulletText>
+            <DetailBulletText>{isPaymentMade ? formatDate(lastPaidDay) : "No payment yet"}</DetailBulletText>
           </DetailBullet>
 
           <DetailBullet>
             <label>Amount Pledge</label>
-            <DetailBulletText>{amount_pledge}</DetailBulletText>
+            <DetailBulletText>{numberWithCommas(amount_pledge)}</DetailBulletText>
           </DetailBullet>
         </DetailRow>
       </InfoCardDetails>
+      <InforCardActions>
+        <Button button_text="+ Make Payment" />
+        <Button button_text="Send Reminder" icon="email" type="email" />
+      </InforCardActions>
     </Card>
   );
 };

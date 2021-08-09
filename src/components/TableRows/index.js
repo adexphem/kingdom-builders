@@ -1,18 +1,10 @@
 import React, { Fragment } from "react";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 
-import { numberWithCommas } from "../../utilities/helpers";
+import { numberWithCommas, formatDate } from "../../utilities/helpers";
 import { KINGDOM_BUILDER_VIEW } from "../../config/paths";
 import { PaperMoneyIcon } from "../icons";
 
 import { StyledContainer, StyledCol, ColTitle, ColBody } from "./styles";
-
-dayjs.extend(utc);
-
-const formatDate = (value) => {
-  return dayjs.utc(value).format("DD MMM YYYY") || "22 Aug 2021";
-};
 
 const Index = ({ data, type, id }) => {
   return (

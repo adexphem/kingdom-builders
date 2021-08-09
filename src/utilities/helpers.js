@@ -1,4 +1,9 @@
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
 import { LOGIN } from "../config/paths";
+
+dayjs.extend(utc);
 
 export const goToLogin = () => {
   return (window.location.href = LOGIN);
@@ -26,3 +31,7 @@ export const removeUnderscore = (e) => {
 export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
 
 export const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/; //eslint-disable-line
+
+export const formatDate = (value) => {
+  return dayjs.utc(value).format("DD MMM YYYY") || "22 Aug 2021";
+};
