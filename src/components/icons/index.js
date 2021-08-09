@@ -9,6 +9,8 @@ import RightArrowIcon from "./RightArrowIcon";
 import PaperMoneyIcon from "./PaperMoneyIcon";
 import CheckHexIcon from "./CheckHexIcon";
 import SadIcon from "./SadIcon";
+import EmailIcon from "./EmailIcon";
+import MobileIcon from "./MobileIcon";
 
 export {
   LP70Logo,
@@ -22,4 +24,6 @@ export {
   PaperMoneyIcon,
   CheckHexIcon,
   SadIcon,
+  EmailIcon,
+  MobileIcon,
 };

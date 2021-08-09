@@ -11,13 +11,13 @@ import {
 import { Button, PaymentProgression } from "../../components";
 import { CheckHexIcon, SadIcon } from "../../components/icons";
 import TableRows from "../../components/TableRows";
+import InfoCard from "./InfoCard";
 
 import { SmEmpty } from "../../components/TableRows/EmptyHeaders";
 
 import {
   MainContainer,
   PaymentTable,
-  InfoCard,
   DetailsCard,
   ViewContent,
   PageTitle,
@@ -96,7 +96,7 @@ const Index = () => {
             </Fragment>
           </PaymentTable>
         </DetailsCard>
-        <InfoCard>right</InfoCard>
+        <InfoCard />
       </ViewContent>
     </MainContainer>
   );

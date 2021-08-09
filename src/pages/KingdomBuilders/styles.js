@@ -65,6 +65,50 @@ export const InfoCard = styled(SimpleCard)`
   }
 `;
 
+export const InfoCardTitle = styled.div`
+  line-height: 2.375rem;
+  font-family: ${({ theme }) => theme.fonts.primary};
+  font-size: 1.375rem;
+  text-align: center;
+`;
+
+export const InfoCardDesc = styled(FlexWrapper)`
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 10px;
+`;
+
+export const InfoCardProfileIcon = styled.div`
+  text-align: center;
+  margin: 10px 0;
+
+  svg {
+    height: 80px;
+    fill: ${({ theme }) => theme.color.primary};
+  }
+`;
+
+export const InfoCardH1 = styled.div`
+  font-size: 1rem;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+`;
+
+export const InfoCardH2 = styled.div`
+  font-size: 0.875rem;
+`;
+
+export const InfoCardG2 = styled.div`
+  display: flex;
+  align-items: center;
+  line-height: 1.75rem;
+
+  svg {
+    height: 14px;
+    fill: ${({ theme }) => theme.color.primary};
+    margin-right: 6px;
+  }
+`;
+
 export const PageTitle = styled.h1`
   width: 100%;
   display: flex;
