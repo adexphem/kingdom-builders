@@ -1,5 +1,5 @@
 import { up } from "styled-breakpoints";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const FlexWrapper = styled.div`
   display: flex;
@@ -55,6 +55,7 @@ export const PaymentTable = styled(SimpleCard)`
 
 export const InfoCard = styled(SimpleCard)`
   min-width: 200px;
+  margin-top: 15px;
 
   ${up("md")} {
     min-width: 300px;
@@ -62,6 +63,7 @@ export const InfoCard = styled(SimpleCard)`
 
   ${up("lg")} {
     min-width: 400px;
+    margin-top: 0;
   }
 `;
 
@@ -107,6 +109,40 @@ export const InfoCardG2 = styled.div`
     fill: ${({ theme }) => theme.color.primary};
     margin-right: 6px;
   }
+`;
+
+export const InfoCardDetails = styled.div`
+  max-width: 97%;
+  padding: 10px 15px;
+  background: rgba(248, 255, 250, 0.5);
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 20px;
+`;
+
+export const DetailRow = styled(FlexWrapper)`
+  justify-content: space-between;
+  padding: 5px 0;
+  width: 100%;
+`;
+
+export const DetailBullet = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 40px;
+  overflow-y: hidden;
+
+  label {
+    font-size: 0.688rem;
+    color: ${({ theme }) => theme.color.color585858};
+  }
+`;
+
+export const DetailBulletText = styled.div`
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: ${({ theme }) => theme.color.color032E00};
 `;
 
 export const PageTitle = styled.h1`

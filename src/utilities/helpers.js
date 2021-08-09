@@ -9,7 +9,7 @@ export const handleLogout = () => {
 };
 
 export const numberWithCommas = (e) => {
-  return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return e != null || e != undefined ? e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : e;
 };
 
 export const removeCommas = (e) => {
@@ -22,6 +22,7 @@ export const removeUnderscore = (e) => {
   return e.replace(/[_-]/g, " ");
 };
 
-export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+/*eslint no-useless-escape: "error"*/
+export const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //eslint-disable-line
 
-export const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+export const passwordPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/; //eslint-disable-line

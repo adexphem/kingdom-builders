@@ -39,7 +39,7 @@ const Index = () => {
   const [selectedPledger, updateSelectedPledger] = useState("");
 
   const handleDataFetch = () => {
-    updateSelectedPledger(pledgers.find((item) => item.id == id));
+    updateSelectedPledger(pledgers.find((item) => item.id.toString() === id.toString()));
 
     if (selectedPledger && selectedPledger.email.length > 0) {
       dispatch(fetchPledgerAmountPaid(selectedPledger.email));
@@ -52,7 +52,7 @@ const Index = () => {
       dispatch(fetchBuilderList());
       handleDataFetch();
     } else {
-      updateSelectedPledger(pledgers.find((item) => item.id == id));
+      updateSelectedPledger(pledgers.find((item) => item.id.toString() === id.toString()));
     }
   }, [pledgers]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -96,7 +96,7 @@ const Index = () => {
             </Fragment>
           </PaymentTable>
         </DetailsCard>
-        <InfoCard />
+        <InfoCard profile={selectedPledger} paymentDetails={paymentDetails} />
       </ViewContent>
     </MainContainer>
   );

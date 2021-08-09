@@ -1,11 +1,7 @@
 import React, { Fragment } from "react";
-import styled, { css } from "styled-components";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { Link } from "react-router-dom";
-import { up } from "styled-breakpoints";
 
-import { SmEmpty } from "./EmptyHeaders";
 import { numberWithCommas } from "../../utilities/helpers";
 import { KINGDOM_BUILDER_VIEW } from "../../config/paths";
 import { PaperMoneyIcon } from "../icons";
