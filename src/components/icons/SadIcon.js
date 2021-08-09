@@ -22,16 +22,16 @@ const SadIcon = ({ fill }) => (
       <path
         d="M69.3333 136C105.969 136 135.667 106.303 135.667 69.6667C135.667 33.0308 105.969 3.33334 69.3333 3.33334C32.6974 3.33334 3 33.0308 3 69.6667C3 106.303 32.6974 136 69.3333 136Z"
         stroke="#EF0000"
-        stroke-width="5.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="5.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M39.4824 92.8834C39.4824 92.8834 49.4324 79.6167 69.3324 79.6167C89.2324 79.6167 99.1824 92.8834 99.1824 92.8834"
         stroke="#FF0000"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   </svg>
