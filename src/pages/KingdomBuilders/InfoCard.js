@@ -15,14 +15,11 @@ import {
   DetailBullet,
   DetailRow,
   DetailBulletText,
-  Breaker,
 } from "./styles";
 
 const InfoCard = ({ profile, paymentDetails }) => {
   let isPaymentMade = paymentDetails.length > 0;
   const { name, email, phone_number, areas_id, payment_mode, pledge_type, status, amount_pledge } = profile || {};
-  console.log("profile ", profile);
-  console.log("paymentDetails ", paymentDetails);
 
   return (
     <Card>
