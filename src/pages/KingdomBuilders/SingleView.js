@@ -12,6 +12,7 @@ import { Button, PaymentProgression } from "../../components";
 import { CheckHexIcon, SadIcon } from "../../components/icons";
 import TableRows from "../../components/TableRows";
 import InfoCard from "./InfoCard";
+import Modal from "../../components/Modal";
 
 import { SmEmpty } from "../../components/TableRows/EmptyHeaders";
 
@@ -37,6 +38,7 @@ const Index = () => {
   const paymentDetails = useSelector((state) => state.kingdomBuilders.paymentDetails);
   const pledgerAmountPaid = useSelector((state) => state.kingdomBuilders.pledgerTotalAmountPaid);
   const [selectedPledger, updateSelectedPledger] = useState("");
+  const [isOpenPaymentModal, setIsOpenPaymentModal] = useState(false);
 
   const handleDataFetch = () => {
     updateSelectedPledger(pledgers.find((item) => item.id.toString() === id.toString()));
@@ -45,6 +47,14 @@ const Index = () => {
       dispatch(fetchPledgerAmountPaid(selectedPledger.email));
       dispatch(fetchPaymentDetailsById(selectedPledger.id));
     }
+  };
+
+  const handleMakePayment = () => {
+    setIsOpenPaymentModal(true);
+  };
+
+  const closeModal = () => {
+    setIsOpenPaymentModal(false);
   };
 
   useEffect(() => {
@@ -61,44 +71,54 @@ const Index = () => {
   }, [selectedPledger]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <MainContainer>
-      <PageTitle>
-        <StyledProfileName>
-          <StyledHexIcon>
-            <CheckHexIcon />
-          </StyledHexIcon>
-          <StyledText>
-            {selectedPledger && selectedPledger.name} <span>Portfolio</span>
-          </StyledText>
-        </StyledProfileName>
-        <StyledButton>
-          <Button button_text="+ Make Payment" id="makePaymentBtn" />
-        </StyledButton>
-      </PageTitle>
-      <ViewContent>
-        <DetailsCard>
-          <PaymentProgression
-            amount_pledge={selectedPledger ? selectedPledger.amount_pledge : 0}
-            amount_paid={pledgerAmountPaid ? pledgerAmountPaid.total : 0}
-          />
-          <PaymentTable>
-            <Fragment>
-              <Title>Payment Record</Title>
-              {paymentDetails && paymentDetails.length > 0 ? (
-                paymentDetails.map((item, id) => <TableRows key={id} data={item} id={id} type="sm" />)
-              ) : (
-                <EmptyContent>
-                  <SmEmpty />
-                  <SadIcon />
-                  <EmptyContentText>No payment record yet!</EmptyContentText>
-                </EmptyContent>
-              )}
-            </Fragment>
-          </PaymentTable>
-        </DetailsCard>
-        <InfoCard profile={selectedPledger} paymentDetails={paymentDetails} />
-      </ViewContent>
-    </MainContainer>
+    <>
+      {isOpenPaymentModal ? (
+        <Modal title="Payment Record Update" onClose={closeModal}>
+          <div>name</div>
+          <div>payments</div>
+          <div>form</div>
+        </Modal>
+      ) : null}
+      <MainContainer>
+        <PageTitle>
+          <StyledProfileName>
+            <StyledHexIcon>
+              <CheckHexIcon />
+            </StyledHexIcon>
+            <StyledText>
+              {selectedPledger && selectedPledger.name} <span>Portfolio</span>
+            </StyledText>
+          </StyledProfileName>
+          <StyledButton>
+            <Button button_text="+ Make Payment" id="makePaymentBtn" onClick={handleMakePayment} />
+          </StyledButton>
+        </PageTitle>
+        <ViewContent>
+          <DetailsCard>
+            <PaymentProgression
+              amount_pledge={selectedPledger ? selectedPledger.amount_pledge : 0}
+              amount_paid={pledgerAmountPaid ? pledgerAmountPaid.total : 0}
+              onClick={handleMakePayment}
+            />
+            <PaymentTable>
+              <Fragment>
+                <Title>Payment Record</Title>
+                {paymentDetails && paymentDetails.length > 0 ? (
+                  paymentDetails.map((item, id) => <TableRows key={id} data={item} id={id} type="sm" />)
+                ) : (
+                  <EmptyContent>
+                    <SmEmpty />
+                    <SadIcon />
+                    <EmptyContentText>No payment record yet!</EmptyContentText>
+                  </EmptyContent>
+                )}
+              </Fragment>
+            </PaymentTable>
+          </DetailsCard>
+          <InfoCard profile={selectedPledger} paymentDetails={paymentDetails} onClick={handleMakePayment} />
+        </ViewContent>
+      </MainContainer>
+    </>
   );
 };
 

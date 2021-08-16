@@ -103,7 +103,7 @@ const StyledSemiCircle = styled.div`
   width: 90%;
 `;
 
-const Index = ({ amount_pledge = "0", amount_paid = "0" }) => {
+const Index = ({ amount_pledge = "0", amount_paid = "0", onClick }) => {
   const percentage = (amount_paid / amount_pledge) * 100;
 
   return (
@@ -115,7 +115,7 @@ const Index = ({ amount_pledge = "0", amount_paid = "0" }) => {
           <label>of</label>
           <label>₦{numberWithCommas(amount_pledge)}</label>
         </PaymentLabel>
-        <TextLink text="Make Payment" showUnderline showArrow />
+        <TextLink text="Make Payment" showUnderline showArrow onClick={onClick} />
       </StyledDetails>
       <StyledSemiCircle>
         <ChangingProgressProvider values={[`${percentage.toFixed(1)}`]}>

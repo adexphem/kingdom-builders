@@ -21,7 +21,7 @@ import {
   InforCardActions,
 } from "./styles";
 
-const InfoCard = ({ profile, paymentDetails }) => {
+const InfoCard = ({ profile, paymentDetails, onClick }) => {
   const isPaymentMade = paymentDetails.length > 0;
   const { name, email, phone_number, areas_id, payment_mode, pledge_type, status, amount_pledge } = profile || {};
   const lastPaidDay = isPaymentMade ? paymentDetails[paymentDetails.length - 1].created_at : "";
@@ -86,7 +86,7 @@ const InfoCard = ({ profile, paymentDetails }) => {
         </DetailRow>
       </InfoCardDetails>
       <InforCardActions>
-        <Button button_text="+ Make Payment" />
+        <Button button_text="+ Make Payment" onClick={onClick} />
         <Button button_text="Send Reminder" icon="email" type="email" />
       </InforCardActions>
     </Card>
