@@ -11,6 +11,7 @@ import CheckHexIcon from "./CheckHexIcon";
 import SadIcon from "./SadIcon";
 import EmailIcon from "./EmailIcon";
 import MobileIcon from "./MobileIcon";
+import CloseIcon from "./CloseIcon";
 
 export {
   LP70Logo,
@@ -26,4 +27,5 @@ export {
   SadIcon,
   EmailIcon,
   MobileIcon,
+  CloseIcon,
 };

@@ -27,6 +27,7 @@ export const theme = {
     color585858: "#585858",
     color032E00: "#032E00",
     color1E411B: "#1E411B",
+    colorf4f9fd: "#f4f9fd",
     warning: "#E30505",
     tintBlue: "#37A2EB",
     tintPink: "#EF8199",

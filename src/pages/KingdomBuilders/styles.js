@@ -120,6 +120,7 @@ export const InfoCardDetails = styled.div`
   border-radius: 10px;
   margin: 0 auto;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export const InforCardActions = styled(FlexWrapper)`

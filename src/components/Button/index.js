@@ -69,7 +69,7 @@ const iconComp = {
 };
 
 const Button = (props) => {
-  const { inProgress, inactive, disabled, buttonId, name, value, icon, type } = props;
+  const { inProgress, inactive, disabled, buttonId, name, value, icon, type, onClick } = props;
 
   return (
     <StyledButton
@@ -78,7 +78,7 @@ const Button = (props) => {
       value={value}
       inProgress={inProgress}
       disabled={disabled === true || inactive === true ? "disabled" : ""}
-      onClick={props.click_event}
+      onClick={onClick}
       type={type ? type : "button"}>
       {!inProgress ? (
         <Fragment>
