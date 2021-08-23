@@ -13,6 +13,7 @@ import { CheckHexIcon, SadIcon } from "../../components/icons";
 import TableRows from "../../components/TableRows";
 import InfoCard from "./InfoCard";
 import Modal from "../../components/Modal";
+import AmountCardSm from "../../components/AmountCardSm";
 
 import { SmEmpty } from "../../components/TableRows/EmptyHeaders";
 
@@ -29,6 +30,10 @@ import {
   StyledHexIcon,
   EmptyContent,
   EmptyContentText,
+  PaymentModalContent,
+  PMCCenter,
+  PMCName,
+  PMCData,
 } from "./styles";
 
 const Index = () => {
@@ -73,10 +78,22 @@ const Index = () => {
   return (
     <>
       {isOpenPaymentModal ? (
-        <Modal title="Payment Record Update" onClose={closeModal}>
-          <div>name</div>
-          <div>payments</div>
-          <div>form</div>
+        <Modal title="Payment Record Update" icon="papermoney" onClose={closeModal}>
+          <PaymentModalContent>
+            <>
+              <PMCCenter>{selectedPledger.parishes_id}</PMCCenter>
+              <PMCName>{selectedPledger.name}</PMCName>
+            </>
+            <PMCData>
+              <AmountCardSm title="Amount Pledge" amount={selectedPledger.amount_pledge} />
+              <AmountCardSm title="Amount Paid" amount={selectedPledger.total_amount_paid} />
+              <AmountCardSm
+                title="Pending"
+                amount={selectedPledger.amount_pledge - selectedPledger.total_amount_paid}
+              />
+            </PMCData>
+            <div>form</div>
+          </PaymentModalContent>
         </Modal>
       ) : null}
       <MainContainer>

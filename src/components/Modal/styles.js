@@ -13,7 +13,7 @@ export const StyledSection = styled.section`
   top: 0;
   width: 100%;
   z-index: 99;
-  background-color: white;
+  background: rgba(51, 51, 51, 0.6);
 
   transition: {
     duration: 0.25;
@@ -49,18 +49,32 @@ export const Content = styled.div`
   }
 `;
 
+export const Body = styled.div`
+  text-align: center;
+  padding: 20px;
+
+  svg {
+    height: 20px;
+    fill: ${({ theme }) => theme.color.primary};
+
+    ${up("lg")} {
+      height: 30px;
+    }
+  }
+`;
+
 export const Title = styled.label`
   font-family: ${({ theme }) => theme.fonts.primary};
   display: block;
   font-weight: 400;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.0001rem;
 
   ${up("lg")} {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 3.5rem;
   }
 `;
@@ -93,5 +107,6 @@ export const Close = styled.div`
 
   &:hover {
     cursor: pointer;
+    background: rgba(4, 154, 4, 0.13);
   }
 `;
