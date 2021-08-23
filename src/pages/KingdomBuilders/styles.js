@@ -1,8 +1,9 @@
 import { up } from "styled-breakpoints";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const FlexWrapper = styled.div`
   display: flex;
+  font-family: ${({ theme }) => theme.fonts.primary};
 `;
 
 export const SimpleCard = styled.div`
@@ -243,5 +244,45 @@ export const EmptyContentText = styled.h1`
 
   ${up("lg")} {
     font-size: 1.5rem;
+  }
+`;
+
+export const PaymentModalContent = styled.div`
+  text-align: left;
+  line-height: 3rem;
+`;
+
+export const common = css`
+  width: 100%;
+  text-align: center;
+  line-height: 2.3rem;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-family: ${({ theme }) => theme.fonts.primary};
+`;
+
+export const PMCCenter = styled.div`
+  ${common}
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color.color578e53};
+`;
+
+export const PMCName = styled.div`
+  ${common}
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.color.pallyGrey};
+`;
+
+export const PMCData = styled(FlexWrapper)`
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  ${up("lg")} {
+    flex-direction: row;
+
+    > div {
+      max-width: 30%;
+    }
   }
 `;

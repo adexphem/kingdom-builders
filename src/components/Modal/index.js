@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Content, StyledSection, Title, SubTitle, Close } from "./styles";
-import { CloseIcon } from "../icons";
+import { Content, StyledSection, Title, SubTitle, Close, Body } from "./styles";
+import { CloseIcon, PaperMoneyIcon } from "../icons";
+
+const iconsInUse = {
+  papermoney: <PaperMoneyIcon />,
+};
 
 const Modal = React.forwardRef((props, ref) => {
   return (
@@ -13,11 +17,12 @@ const Modal = React.forwardRef((props, ref) => {
             <CloseIcon />
           </Close>
         ) : null}
-        <div>
+        <Body>
+          {props.icon ? iconsInUse[`${props.icon}`] : null}
           {props.title ? <Title>{props.title}</Title> : ""}
           {props.subTitle ? <SubTitle>{props.subTitle}</SubTitle> : ""}
           <div>{props.children}</div>
-        </div>
+        </Body>
       </Content>
     </StyledSection>
   );
