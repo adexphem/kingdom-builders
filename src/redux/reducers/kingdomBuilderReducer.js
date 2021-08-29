@@ -47,6 +47,13 @@ function kingdomBuildersReducer(state = initialState, action) {
     case ActionTypes.FETCH_PLEDGER_PAYMENT_DETAILS_BY_ID_FAILURE:
       return { ...state, ...payload };
 
+    case ActionTypes.CREATE_PLEDGER_PAYMENT:
+      return { ...state };
+    case ActionTypes.CREATE_PLEDGER_PAYMENT_SUCCESS:
+      return { ...state };
+    case ActionTypes.CREATE_PLEDGER_PAYMENT_FAILURE:
+      return { ...state, ...payload };
+
     default:
       return state;
   }

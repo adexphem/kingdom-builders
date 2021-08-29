@@ -286,3 +286,29 @@ export const PMCData = styled(FlexWrapper)`
     }
   }
 `;
+
+export const PMCForm = styled.form`
+  display: flex;
+  font-family: ${({ theme }) => theme.fonts.primary};
+  padding: 20px 30px;
+  margin-top: 20px;
+  flex-direction: column;
+  border-radius: 3px;
+  background: rgba(196, 196, 196, 0.13);
+`;
+
+export const PMCFormButton = styled.div`
+  display: flex;
+  justify-content: center;
+  font-family: ${({ theme }) => theme.fonts.secondary};
+  width: 160px;
+  margin: 15px auto;
+
+  ${up("lg")} {
+    width: 50%;
+  }
+
+  button {
+    padding: 25px 0;
+  }
+`;
