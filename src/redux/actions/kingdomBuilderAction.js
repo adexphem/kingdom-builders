@@ -143,3 +143,31 @@ export const fetchPaymentDetailsById = (id) => {
       });
   };
 };
+
+export const addPaymentById = (data) => {
+  const { id } = data;
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.CREATE_PLEDGER_PAYMENT,
+      payload: { inProgress: true },
+    });
+
+    await api
+      .post(`/kingdom_builder/${id}/payment`, data)
+      .then((res) => {
+        dispatch({
+          type: ActionTypes.CREATE_PLEDGER_PAYMENT_SUCCESS,
+          payload: { ...res.data, inProgress: false },
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.CREATE_PLEDGER_PAYMENT_FAILURE,
+          payload: {
+            error: `Error: ${error.message}`,
+            inProgress: false,
+          },
+        });
+      });
+  };
+};

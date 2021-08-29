@@ -35,17 +35,19 @@ export const StyledSection = styled.section`
 
 export const Content = styled.div`
   margin: 0 30px;
-  max-height: 90vh;
+  max-height: 98vh;
   overflow: auto;
   position: relative;
   border-radius: 0.5rem;
-  top: 30%;
+  top: 10%;
   width: auto;
   background: white;
 
   ${up("lg")} {
     max-width: 900px;
+    max-height: 90vh;
     margin: 0 auto;
+    top: 20%;
   }
 `;
 
